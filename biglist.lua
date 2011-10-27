@@ -6,14 +6,14 @@ local list = {}
 
 for i=1, #achewoods do
   local aw = achewoods[i]
-  aw.title = os.date("Achewood | %m/%d.%Y",aw.epoch)
+  aw.title = os.date("%m/%d.%Y :: Achewood",aw.epoch)
   list[#list+1]=aw
 end
 
 for char, entries in pairs(blogs) do
   for i=1, #entries do
     local aw = entries[i]
-    aw.title = char .. os.date(" | %m/%d.%Y (%H:%M) | ",aw.epoch) .. aw.title
+    aw.title = os.date("%m/%d.%Y (%H:%M) :: ",aw.epoch) .. char .. ' - ' .. aw.title
     list[#list+1]=aw
   end
 end
@@ -26,7 +26,13 @@ io.write[[
 <!DOCTYPE html>
 <html>
 <head>
-<title>All the Achewood. All the time.</title>
+<title>ACHELIST</title>
+<style type="text/css">
+a {
+  font-family: monospace;
+  font-size: 10pt;
+}
+</style>
 <meta charset="UTF-8">
 </head>
 <body>
