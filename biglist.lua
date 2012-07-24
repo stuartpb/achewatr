@@ -77,11 +77,7 @@ a {
 <body>
 ]]
 for i=1, #list do
-  if list[i].title then
-    io.write((string.gsub('<a href=$url>$date :: $src - $title</a><br>\n',"%$(%a+)",list[i])))
-  else
-    io.write((string.gsub('<a href=$url>$date :: $src</a><br>\n',"%$(%a+)",list[i])))
-  end
+  io.write((string.gsub('<a href=$url>$date :: $src - $title</a><br>\n',"%$(%a+)",list[i])))
 end
 io.write[[
 </body>
