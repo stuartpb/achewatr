@@ -51,9 +51,9 @@ table.sort(list,function(m,n)
   if m.epoch == n.epoch then
     --Do the May 11, 2004 Achewood second
     if m.epoch == 1084258800 then
-      return n.src == "Achewood"
-    else
-      return m.src == "Achewood"
+      return n.src == "Achewood" and m.src ~= "Achewood"
+    else --Do other Achewood strips first
+      return m.src == "Achewood" and n.src ~= "Achewood"
     end
   else
     return m.epoch < n.epoch
