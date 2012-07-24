@@ -313,6 +313,8 @@ return {
     {url="http://journeyintoreason.blogspot.com/2004/07/i-guess-some-friends-dont-remember.html", title="I Guess Some Friends Don't Remember When You Are Supposed To Do Things Together.", epoch=1088753040},
   },
   ["Téodor"] = {
+    {url="http://orezscu.blogspot.com/2012/07/christmas-party-pt-2.html", title="The Christmas Party, Pt. 2", epoch=1342501980},
+    {url="http://orezscu.blogspot.com/2012/01/christmas-party-pt-1.html", title="The Christmas Party, Pt. 1", epoch=1326949080},
     {url="http://orezscu.blogspot.com/2008/05/santa-cruz-post-2.html", title="Santa Cruz post #2", epoch=1212207780},
     {url="http://orezscu.blogspot.com/2008/05/foto-kwiz-5-not-really-kwiz.html", title="Foto-Kwiz #5 (not really a Kwiz)", epoch=1209959460},
     {url="http://orezscu.blogspot.com/2008/04/im-hungry.html", title="I'm Hungry", epoch=1209358080},
@@ -777,6 +779,7 @@ return {
     {url="http://mollysanders.blogspot.com/2004/07/roast-beef-is-so-silly.html", title="Roast Beef is so silly", epoch=1088757720},
   },
   ["Chris"] = {
+    {url="http://chrisonstad.blogspot.com/2011/12/normal-0-false-false-false-en-us-x-none.html", title="", epoch=1324065300},
     {url="http://chrisonstad.blogspot.com/2011/03/hiatus-explained-tenderly-and-with.html", title="Hiatus, Explained Tenderly and with a Great Gentleness.", epoch=1300684560},
     {url="http://chrisonstad.blogspot.com/2009/01/good-employee-is-available-in-this-land.html", title="A Good Employee Is Available In This Land", epoch=1232168520},
     {url="http://chrisonstad.blogspot.com/2009/01/achewood-state-of-union-12009.html", title="Achewood State of the Union, 1/2009", epoch=1231744080},
