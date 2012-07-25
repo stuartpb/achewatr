@@ -26,7 +26,7 @@ local blogids = {
 
 for i=1, #achewoods do
   local aw = achewoods[i]
-  aw.date = os.date("%m/%d.%Y",aw.epoch)
+  aw.date = os.date("      %m/%d.%Y",aw.epoch)
   aw.src = "Achewood"
   aw.img = "achewood"
   list[#list+1]=aw
@@ -34,7 +34,7 @@ end
 
 for i=1, #raysplaces do
   local aw = raysplaces[i]
-  aw.date = os.date("%m/%d.%Y",aw.epoch)
+  aw.date = os.date("      %m/%d.%Y",aw.epoch)
   aw.src = "Ray's Place"
   aw.img = "raysplace"
   list[#list+1]=aw
@@ -43,7 +43,7 @@ end
 for char, entries in pairs(blogs) do
   for i=1, #entries do
     local aw = entries[i]
-    aw.date = os.date("%m/%d.%Y (%H:%M)",aw.epoch)
+    aw.date = os.date("%H:%M %m/%d.%Y",aw.epoch)
     aw.src = char
     aw.img = blogids[char]
     list[#list+1]=aw
@@ -78,6 +78,7 @@ a {
   font-family: monospace;
   font-size: 10pt;
   text-decoration: none;
+  white-space: pre-wrap;
 }
 ul {
   list-style: none;
@@ -90,9 +91,9 @@ ul {
 ]]
 for i=1, #list do
   if list[i].title and list[i].title~="" then
-    io.write((string.gsub('<li><a href=$url><img src="images/72x16/$img.png" alt="$src"> $date - $title</a></li>\n',"%$(%a+)",list[i])))
+    io.write((string.gsub('<li><a href=$url>$date <img src="images/72x16/$img.png" alt="$src"> $title</a></li>\n',"%$(%a+)",list[i])))
   else
-    io.write((string.gsub('<li><a href=$url><img src="images/72x16/$img.png" alt="$src"> $date</a></li>\n',"%$(%a+)",list[i])))
+    io.write((string.gsub('<li><a href=$url>$date <img src="images/72x16/$img.png" alt="$src"></a></li>\n',"%$(%a+)",list[i])))
   end
 end
 io.write[[
