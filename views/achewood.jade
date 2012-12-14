@@ -1,0 +1,26 @@
+extends achewatr
+
+block head
+  link(rel="stylesheet", href="/static/achewood.css")
+
+mixin comic
+  if active.alt
+    img(src=imgsrc, title=active.alt)
+  else
+    img(src=imgsrc)
+
+block content
+  if active.header
+    #comic_header= active.header
+  #comic_body
+  if active.href
+    a(href=active.href)
+      comic
+  else
+    comic
+  #comic_footer
+    if active.alt
+      if active.href
+        a(href=active.href).visible-alt-text= active.alt
+      else
+        span.visible-alt-text= active.alt
