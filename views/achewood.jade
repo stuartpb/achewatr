@@ -5,9 +5,9 @@ block head
 
 mixin comic
   if active.alt
-    img(src=imgsrc, title=active.alt)
+    img(src=imgsrc, title=active.alt, alt="Comic for "+active.published.toString("MMM dd, yyyy"))
   else
-    img(src=imgsrc)
+    img(src=imgsrc, alt="Comic for "+active.published.toString("MMM dd, yyyy"))
 
 block content
   if active.header
