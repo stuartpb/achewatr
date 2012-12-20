@@ -50,14 +50,21 @@ var blogs = [
     }
   }
   item._id = location
-  item.path = url.parse(location).path.replace(/.html$/,'')
+  var urlobj = url.parse(location)
+  item.path = urlobj.path.replace(/.html$/,'')
+
+  //This works.
+  //Is it efficient, airtight, or otherwise clean as could be? No.
+  //Does it use what I've written without requiring a major refactor?
+  //Why yes, yes it does!
+  item.blog = urlobj.hostname.split('.',1)[0]
 
   return item;
 }
 
 function addItemFromEntry(items){
   return function(entry) {
-    items
+    items.insert(itemDocumentFromEntry(entry))
   }
 }
 
