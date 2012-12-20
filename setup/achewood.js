@@ -55,6 +55,7 @@ function makeQueue(items) {
   }}
   return async.queue(
     function(task,callback){
+      console.log('Fetching '+task.href+' ...')
       env(task.href,addComic(task.title))
     }, concurrency)
 }

@@ -101,9 +101,13 @@ mongodb.MongoClient.connect(process.argv[2],
     var entryHandler = addItemFromEntry(items)
     function populateNextBlog(index){
       if (index < blogs.length) {
+        console.log('Populating ' + blogs[index] + '....')
         populateFromBlog(blogs[index],
           entryHandler,
-          function(){populateNextBlog(index+1)}
+          function(){
+            console.log(blogs[index] + 'population completed.')
+            populateNextBlog(index+1)
+          }
       }
     }
     populateNextBlog(0)

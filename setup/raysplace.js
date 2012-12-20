@@ -42,6 +42,7 @@ mongodb.MongoClient.connect(process.argv[2],onSuccess(function(db){
   var addRaysPlace = RaysPlaceCollector(db.collection('items'));
 
   var q = async.queue(function(task, callback) {
+    console.log('Fetching '+task.href+' ...')
     jsdom.env(task.href,addRaysPlace(task.date, task.title, callback))
   }, concurrency);
 
