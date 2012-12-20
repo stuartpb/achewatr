@@ -1,0 +1,13 @@
+{
+  "name": "achewatr",
+  "version": "0.0.0",
+  "description": "A unified Achewood strip / blog site.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "Stuart P. Bentley",
+  "license": "MIT",
+  "readmeFilename": "README.md"
+}
