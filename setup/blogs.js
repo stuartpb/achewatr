@@ -14,7 +14,6 @@ var blogs = [
   "mollysanders", //Molly
   "chrisonstad", //Chris
   "peterhcropes", //Nice Pete
-  "charleysmuckles", //Little Nephew
   "emerillg" //Emeril
 ]
 
@@ -23,13 +22,10 @@ var blogs = [
   var item = {
     type: 'blog'}
   //title from the title element
-  item.title = entry.title
+  item.title = entry.title.$text
   //date from the published element (not the updated tag)
   item.published = new Date(entry.published)
   //content from the content tag
-  item.content = entry.content
-    //with the <div class="blogger-post-footer"> content tracker removed
-    .replace(/<div class="blogger-post-footer">.*?<\/div>/,'')
 
   //Grab the author name from the name tag of the author tag
   var arname = entry.author.name
@@ -59,12 +55,30 @@ var blogs = [
   //Why yes, yes it does!
   item.blog = urlobj.hostname.split('.',1)[0]
 
+  if(entry.content){
+    if(entry.content.$text){
+      //with the <div class="blogger-post-footer"> content tracker removed
+      item.content = entry.content.$text
+        .replace(/<div class="blogger-post-footer">.*?<\/div>/,'')
+    } else {
+      item.content = ''
+    }
+  } else {
+    (function(entry){console.log("!!! OH NO: ",entry)})(location)
+    return null;
+  }
+
   return item;
 }
 
 function addItemFromEntry(items){
   return function(entry) {
-    items.insert(itemDocumentFromEntry(entry))
+    var doc = itemDocumentFromEntry(entry)
+    if(doc)
+      items.insert(doc,onSuccess(function(result){
+        console.log(": "+result[0]._id)
+      }
+    ))
   }
 }
 
@@ -73,7 +87,7 @@ function populateFromBlog(blogname,entryHandler,endcb) {
   var request = http.get({
     host: blogname+'.blogspot.com',
     path: '/atom.xml?max-results=65536'
-  }).on('response', function(response) {
+  }, function(response) {
     var xml = new XmlStream(response);
 
     //Expect multiple link tags
@@ -89,12 +103,12 @@ function onSuccess(cb){
     if (err) {
       console.error(err)
     } else {
-      cb.apply(this,arguments)
+      cb.apply(this,Array.prototype.slice.call(arguments,1))
     }
   }
 }
 
-
+console.log("Connecting to "+process.argv[2]+' ...')
 mongodb.MongoClient.connect(process.argv[2],
   onSuccess(function(db) {
     var items = db.collection('items')
@@ -105,9 +119,12 @@ mongodb.MongoClient.connect(process.argv[2],
         populateFromBlog(blogs[index],
           entryHandler,
           function(){
-            console.log(blogs[index] + 'population completed.')
+            console.log(blogs[index] + ' population completed.')
             populateNextBlog(index+1)
-          }
+          })
+      } else {
+        console.log('Closing DB...')
+        db.close();
       }
     }
     populateNextBlog(0)
