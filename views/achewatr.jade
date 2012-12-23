@@ -9,16 +9,16 @@ html
     nav
       if prev
         a#achewatr-prev(href=prev.url)
-          .date= prev.date
+          time.date= prev.date
           .source= prev.source
           .title= prev.title
       #achewatr-heading
-        .date= active.date
+        time.date= active.date
         .source= active.source
         .title= active.title
       if next
         a#achewatr-next(href=next.url)
-          .date= next.date
+          time.date= next.date
           .source= next.source
           .title= next.title
       else
