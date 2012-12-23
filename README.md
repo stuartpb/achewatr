@@ -14,7 +14,7 @@ Date the item was published (as a Date).
 
 #### title
 
-Title of the strip / column / blog post.
+Title of the strip / column / blog post. Note that this can be empty, as in the case of Chris' [December 2011 blog post](http://chrisonstad.blogspot.com/2011/12/normal-0-false-false-false-en-us-x-none.html).
 
 #### type
 
