@@ -5,9 +5,9 @@ block head
 
 mixin comic
   if active.alt
-    img(src=imgsrc, title=active.alt, alt="Comic for "+active.published.toString("MMM dd, yyyy"))
+    img(src="http://achewood.com/comic.php?date="+active.mdydate, title=active.alt, alt="Comic for "+active.published.toString("MMM dd, yyyy"))
   else
-    img(src=imgsrc, alt="Comic for "+active.published.toString("MMM dd, yyyy"))
+    img(src="http://achewood.com/comic.php?date="+active.mdydate, alt="Comic for "+active.published.toString("MMM dd, yyyy"))
 
 block content
   if active.header
@@ -15,9 +15,9 @@ block content
   #comic_body
   if active.href
     a(href=active.href)
-      comic
+      +comic
   else
-    comic
+    +comic
   #comic_footer
     if active.alt
       if active.href

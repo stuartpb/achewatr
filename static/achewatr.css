@@ -1,0 +1,24 @@
+.clearfix {clear:both}
+
+#achewatr-prev {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  text-align: left;
+}
+
+#achewatr-heading {
+  text-align: center;
+  margin: inherit auto;
+}
+
+#achewatr-next {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  text-align: right;
+}
+
+#achewatr-content {
+  clear: both;
+}

@@ -1,0 +1,14 @@
+extends achewatr
+
+block head
+  link(rel="stylesheet", href="/static/raysplace.css")
+
+block content
+  article
+    header
+      hgroup
+        h1 Ray's Place
+        h2 All the Latest Thoughts & Ideas from Ray
+      img(src = "http://achewood.com/rsrc/img/raysplace.gif", alt = "Tap, tap, tap")
+      time= active.published.toString('MMM d, yyyy')
+    #rayContent!= active.content

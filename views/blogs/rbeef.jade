@@ -1,0 +1,25 @@
+extends ../achewatr
+
+block head
+  link(rel="stylesheet", href="/static/blogs/rbeef.css")
+
+block content
+    header
+      h1#blog-title grep
+      //- I'm keeping it this way because I like it
+      p#description
+    #content
+      #main
+        time.date-header= active.published.toString('dddd, MMMM dd, yyyy')
+        article.post
+          h3.post-title= active.title
+          .post-body!= active.content
+        p.post-footer posted by #{active.author || 'me'} at <a href="#{originalUrl}">#{active.published.toString('h:mm tt')}</a>
+      #sidebar
+        img(src="http://www.achewood.com/rsrc/img/beef_blog.gif")
+        h2.sidebar-title About Me
+        | Roast Beef
+        | <br>
+        | Achewood 94526
+
+
