@@ -4,6 +4,7 @@ var url = require('url')
 var async = require("async")
 
 var concurrency = 5;
+var upsert = false;
 
 function onSuccess(cb){
   return function(err) {
@@ -17,7 +18,7 @@ function onSuccess(cb){
 
 function makeQueue(db) {
   var items = db.collection('items')
-  function addComic(title,remaining){ return onSuccess(function(window){
+  function addComic(title,remaining,callback){ return onSuccess(function(window){
     var document = window.document
     var itemDoc = {
       _id: document.location.href,
@@ -31,7 +32,11 @@ function makeQueue(db) {
       .getElementsByTagName("a")[0]
     var comic = anchor.getElementsByTagName("img")[0]
     if(comic.title) {itemDoc.alt = comic.title}
-    if(anchor.href) {itemDoc.href = comic.href}
+    if(anchor.href
+      //Apparently empty hrefs get as the document's location
+      && anchor.href != document.location.href) {
+      itemDoc.href = anchor.href
+    }
 
     var cHeader = document.getElementById("comic_header")
     if(cHeader){
@@ -48,29 +53,23 @@ function makeQueue(db) {
       }
       itemDoc.header = cHeader.innerHTML.trim()
     }
-    //If this is ever full, I've never noticed, and I have no idea
-    //what it'd even do
-    if(document.getElementById("comic_footer").innerHTML.trim()){
-      console.log('!! FOOTER: '+document.location.href, document.getElementById("comic_header").textContent.trim())
-    }
 
-    function postUpdateCallback(href){
-      return onSuccess(function(result){
-        console.log(": "+href)
-        if(remaining < 1) {
-          console.log("Closing connection...")
-          db.close()
-        }
-      })
-    }
+    var postInsertionCb = onSuccess(function(result){
+        console.log(": "+document.location.href)
+        callback();
+      });
 
-    items.update(itemDoc,{upsert: true},postUpdateCallback(document.location.href))
-    callback();
+    if(upsert) {
+      items.update({_id: document.location.href},
+        itemDoc,{upsert:true},postInsertionCb)
+    } else {
+      items.insert(itemDoc,postInsertionCb)
+    }
   })}
   return async.queue(
     function(task,callback){
       console.log('Fetching '+task.href+' ...')
-      env(task.href,addComic(task.title,task.remaining))
+      env(task.href,addComic(task.title,task.remaining,callback))
     }, concurrency)
 }
 
@@ -88,7 +87,11 @@ mongodb.MongoClient.connect(process.argv[2],onSuccess(function(db){
     //For each page:
     for (var i = 0; i < dds.length; ++i) {
       var anchor = dds[i].getElementsByTagName('a')[0];
-      q.push({title: anchor.title, href: anchor.href, remaining: dds.length-1-i})
+      q.push({title: anchor.textContent, href: anchor.href, remaining: dds.length-1-i})
+      q.drain= function() {
+        console.log("Closing connection...")
+        db.close()
+      }
     }
   }))
 }));

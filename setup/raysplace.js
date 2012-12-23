@@ -30,7 +30,7 @@ function RaysPlaceCollector(items){
         title: title,
         published: new Date(date),
         type: 'raysplace',
-        mdydate: date.replace('.',''),
+        mdydate: date.replace(/\./g,''),
         content: rayContent
       },onSuccess(function(result){
         console.log(": "+result[0]._id)
