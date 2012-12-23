@@ -6,8 +6,22 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stuartpb/achewatr.git"
+  },
   "author": "Stuart P. Bentley",
   "license": "MIT",
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "mongodb": "~1.2.6",
+    "express": "~3.0.5",
+    "jade": "~0.27.7",
+    "async": "~0.1.22",
+    "queue-async": "~1.0.0",
+    "jsdom": "~0.3.3",
+    "xml-stream": "~0.4.1",
+    "xdate": "~0.7.0"
+  },
+  "devDependencies": {}
 }
