@@ -192,7 +192,6 @@ function getLocationForSource(name) {
       pathname: '/index.pl',
       search: {
         comic: 636,
-        search: 'Find',
         s: query
       }
     })
@@ -203,15 +202,15 @@ function getLocationForSource(name) {
   if(parsed.hostname == 'achewood.com' ||
     parsed.hostname == 'www.achewood.com'){
     if (parsed.pathname == 'index.php') {
-      if(parsed.path.query.date) {
-        return '/achewood/date/' + parsed.path.query.date
+      if(parsed.query.date) {
+        return '/achewood/date/' + parsed.query.date
       } else {
         //note redirecting to a redirect page like this is a bad idea
         return '/latest?type=achewood'
       }
     } else if (parsed.pathname == 'raysplace.php') {
-      if(parsed.path.query.date) {
-        return '/raysplace/date/' + parsed.path.query.date
+      if(parsed.query.date) {
+        return '/raysplace/date/' + parsed.query.date
       } else {
         //note redirecting to a redirect page like this is a bad idea
         return '/latest?type=raysplace'
