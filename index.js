@@ -35,19 +35,31 @@ mongodb.MongoClient.connect(mongoUri,function(err,db){
   items = db.collection('items');
 });
 
-var blogNames = {
-  raysmuckles: "Ray",
-  rbeef: "Roast Beef",
-  journeyintoreason: "Pat",
-  orezscu: "Téodor",
-  philippesblog: "Philippe",
-  corneliusbear: "Mr. Bear",
-  lyle151: "Lyle",
-  mollysanders: "Molly",
-  chrisonstad: "Chris",
-  peterhcropes: "Nice Pete",
-  charleysmuckles: "Little Nephew",
-  emerillg: "Emeril"
+var blogInfo = {
+  raysmuckles: { title: 'Hey, Chochachos!',
+    character: 'Ray', banner: 'ray' },
+  rbeef: { title: 'grep',
+    character: 'Roast Beef', banner: 'rbeef' },
+  journeyintoreason: { title: 'A Journey Into Reason',
+    character: 'Pat', banner: 'pat' },
+  orezscu: { title: 'The Goldheart Mountaintop Queen Directory',
+    character: 'Téodor', banner: 'teodor' },
+  philippesblog: { title: 'Huuugs!',
+    character: 'Philippe', banner: 'philippe' },
+  corneliusbear: { title: 'Drones Club',
+    character: 'Mr. Bear', banner: 'cornelius' },
+  lyle151: { title: 'Ace of Spades',
+    character: 'Lyle', banner: 'lyle' },
+  mollysanders: { title: 'Molly Says',
+    character: 'Molly', banner: 'molly' },
+  chrisonstad: { title: '"Awesome!" A Blog.',
+    character: 'Chris', banner: 'chris' },
+  peterhcropes: { title: 'Peter H. Cropes',
+    character: 'Nice Pete', banner: 'nicepete' },
+  charleysmuckles: { title: 'Tha Billet!',
+    character: 'Little Nephew', banner: 'littlenephew' },
+  emerillg: { title: 'Emeril LeGoinegasque',
+    character: 'Emeril', banner: 'emeril' }
 }
 
 function fortifyItem(doc){
@@ -55,14 +67,17 @@ function fortifyItem(doc){
     doc.published = XDate(doc.published)
     if (doc.type=="achewood") {
       doc.source = "Achewood"
+      doc.banner = 'achewood'
       doc.url = '/achewood/date/' + doc.mdydate
       doc.date = doc.published.toString('MM.dd.yyyy')
     } else if (doc.type == "raysplace") {
       doc.source = "Ray's Place"
+      doc.banner = 'raysplace'
       doc.url = '/raysplace/date/' + doc.mdydate
       doc.date = doc.published.toString('MM.dd.yyyy')
     } else if (doc.type == "blog") {
-      doc.source = blogNames[doc.blog]
+      doc.source = blogNames[doc.blog].character
+      doc.banner = blogNames[doc.blog].banner
       doc.url = '/blogs/' + doc.blog + doc.path
       doc.date = doc.published.toString('MM.dd.yyyy hh:mm tt')
     }
