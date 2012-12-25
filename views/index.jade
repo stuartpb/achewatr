@@ -10,7 +10,8 @@ html
     #ends
       a(href="/achewood/date/10012001") Start at the beginning
       a(href="/latest") Skip to the end
-    form#searchbox
-      input()
+    form#searchbox(action='/go')
+      input(name='q')
+      button(type='submit') Go
     #randoms
     #archive
