@@ -1,5 +1,5 @@
 var mongodb = require("mongodb")
-var jsdom = require("jsdom")
+var jsdom = require("jsdom");
 var async = require("async")
 
 var concurrency = 5;
@@ -19,7 +19,7 @@ function RaysPlaceCollector(items){
     return function(window) {
       var document = window.document
       var rayContent = document.getElementsByClassName('ray')[0].innerHTML
-        .replace(/^.*<span class="rayDate">[^<]*<\/span><br>\s*/,'')
+        .replace(/^[\s\S]*<span class="rayDate">[^<]*<\/span>\s*(?:<br ?\/?>)?\s*/,'')
         //Spacer paragraphs are bad enough as it is, but they're
         //even worse when they're put at the bottom of an article to
         //have the exact same effect as {margin-bottom:3em}. Nuke 'em.
@@ -41,7 +41,7 @@ function RaysPlaceCollector(items){
   }
 }
 
-mongodb.MongoClient.connect(process.argv[2],onSuccess(function(db){
+mongodb.MongoClient.connect(process.argv[2] || 'mongodb://localhost/default',onSuccess(function(db){
   var addRaysPlace = RaysPlaceCollector(db.collection('items'));
 
   var q = async.queue(function(task, callback) {
@@ -71,6 +71,10 @@ mongodb.MongoClient.connect(process.argv[2],onSuccess(function(db){
       } else {
         //If no <a> element, title is content of last childNode (a textNode)
         anchor = pElems[i].childNodes[pElems[i].childNodes.length-1]
+
+        //Change the location href to be the permalink to this page
+        document.location.href = 'http://achewood.com/raysplace.php?date='+date.replace(/\./g,'')
+
         //and use this DOM rather than requesting a new page
         addRaysPlace(date,anchor.textContent.trim(),function(){})(window)
       }
