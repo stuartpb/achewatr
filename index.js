@@ -216,14 +216,17 @@ function getLocationForSource(name) {
         //note redirecting to a redirect page like this is a bad idea
         return '/latest?type=raysplace'
       }
-    } else if (parse){
+    } else if (parsed.pathname == 'list.php'){
+      return '/list'
+    } else {
+      return achewoodSearchUrl(name);
     }
   } else if (/^[^\.]\.blogspot\.com$/.test(parsed.hostname)){
     var blog = parsed.hostname.split(0,parsed.hostname.indexOf('.'));
     var path = parsed.hostname.path.replace(/\.html$/,'');
     return '/blogs/' + blog + '/' + path;
   } else {
-    return achewoodSearchUrl(query);
+    return achewoodSearchUrl(name);
   }
 }
 
