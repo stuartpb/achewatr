@@ -1,8 +1,12 @@
 var mongodb = require("mongodb")
-var jsdom = require("jsdom");
+//Ray's Place has some pretty bad HTML, jsdom's inbuilt parser
+//can't really cut it
+var jsdom = require('hubbub').jsdomConfigure(require("jsdom"));
 var async = require("async")
 
-var concurrency = 5;
+//from what I can tell, hubbub starts segfaulting when
+//trying to maintain any more than two env calls at once
+var concurrency = 2;
 
 function onSuccess(cb){
   return function(err) {

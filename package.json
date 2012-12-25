@@ -21,7 +21,8 @@
     "queue-async": "~1.0.0",
     "jsdom": "~0.3.3",
     "xml-stream": "~0.4.1",
-    "xdate": "~0.7.0"
+    "xdate": "~0.7.0",
+    "hubbub": "~0.5.2"
   },
   "devDependencies": {},
   "engines": {
