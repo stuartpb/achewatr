@@ -19,6 +19,11 @@ function errHandlingCb(errCb){return function(successCb){
   }
 }}
 
+function respondNotFound(req,res){
+  res.status(400)
+  res.render('notfound')
+}
+
 //Instead of using this I'm just kicking off to Node's error handling
 function errResponse(res){
   return function(err){
@@ -127,8 +132,7 @@ function renderPage(reqCobbler) {
     var cobbled = reqCobbler(req)
     getTrio(cobbled.query,onSuccess,function(trio){
       if(!trio){
-        res.status(404);
-        res.render('notfound');
+        respondNotFound(req,res)
       } else {
         trio.originalUrl = req.originalUrl
         res.render(cobbled.viewName,trio)
@@ -159,6 +163,62 @@ app.get("/blogs/:blog*",renderPage(function(req){
   //viewName: 'blogs/' + req.params.blog };
   viewName: 'blogs/rbeef' };
 }))
+app.get("/",function(req,res){
+  res.render('index')
+})
+app.get("/list",function(req,res){
+})
+
+function getLocationForSource(name) {
+  function achewoodSearchUrl(query){
+    return url.format({
+      protocol: 'http',
+      host: 'www.ohnorobot.com',
+      pathname: '/index.pl',
+      search: {
+        comic: 636,
+        search: 'Find',
+        s: query
+      }
+    })
+  }
+
+  var parsed = url.parse(name, true)
+
+  if(parsed.hostname == 'achewood.com' ||
+    parsed.hostname == 'www.achewood.com'){
+    if (parsed.pathname == 'index.php') {
+      if(parsed.path.query.date) {
+        return '/achewood/date/' + parsed.path.query.date
+      } else {
+        //note redirecting to a redirect page like this is a bad idea
+        return '/latest?type=achewood'
+      }
+    } else if (parsed.pathname == 'raysplace.php') {
+      if(parsed.path.query.date) {
+        return '/raysplace/date/' + parsed.path.query.date
+      } else {
+        //note redirecting to a redirect page like this is a bad idea
+        return '/latest?type=raysplace'
+      }
+    } else if (parse){
+    }
+  } else if (/^[^\.]\.blogspot\.com$/.test(parsed.hostname)){
+    var blog = parsed.hostname.split(0,parsed.hostname.indexOf('.'));
+    var path = parsed.hostname.path.replace(/\.html$/,'');
+    return '/blogs/' + blog + '/' + path;
+  } else {
+    return achewoodSearchUrl(query);
+  }
+}
+
+app.get("/go",function(req,res){
+  res.setHeader('Location',
+      getLocationForSource(req.param('q')))
+    .send(302)
+})
+
+app.use(respondNotFound)
 
 var port = process.env.PORT || 5000;
 app.listen(port, function() {
