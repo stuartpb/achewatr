@@ -148,7 +148,6 @@ app.set('view engine', 'jade');
 
 app.use(express.compress());
 
-app.use('/static',express.static(__dirname+'/static'))
 app.get("/achewood/date/:date",renderPage(function(req){
   return { query: {type: 'achewood', mdydate: req.params.date},
     viewName: 'achewood' };
@@ -217,6 +216,8 @@ app.get("/go",function(req,res){
       getLocationForSource(req.param('q')))
     .send(302)
 })
+
+app.use(express.static(__dirname+'/static'))
 
 app.use(respondNotFound)
 
