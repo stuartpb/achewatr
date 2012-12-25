@@ -76,8 +76,8 @@ function fortifyItem(doc){
       doc.url = '/raysplace/date/' + doc.mdydate
       doc.date = doc.published.toString('MM.dd.yyyy')
     } else if (doc.type == "blog") {
-      doc.source = blogNames[doc.blog].character
-      doc.banner = blogNames[doc.blog].banner
+      doc.source = blogInfo[doc.blog].character
+      doc.banner = blogInfo[doc.blog].banner
       doc.url = '/blogs/' + doc.blog + doc.path
       doc.date = doc.published.toString('MM.dd.yyyy hh:mm tt')
     }
