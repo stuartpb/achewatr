@@ -1,7 +1,8 @@
-var express = require('express')
-var mongodb = require('mongodb')
-var XDate = require('xdate')
-var queue = require('queue-async')
+var express = require('express');
+var mongodb = require('mongodb');
+var XDate = require('xdate');
+var queue = require('queue-async');
+var url = require('url');
 
 var mongoUri = process.env.MONGOLAB_URI ||
   process.env.MONGOHQ_URL ||
