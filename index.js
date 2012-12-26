@@ -223,7 +223,7 @@ function getLocationForSource(name) {
   } else if (/^[a-zA-Z0-9\-]+\.blogspot\.com$/.test(parsed.hostname)){
     var blog = parsed.hostname.slice(0,parsed.hostname.indexOf('.'));
     var path = parsed.path.replace(/\.html$/,'');
-    return '/blogs/' + blog + '/' + path;
+    return '/blogs/' + blog + path;
   } else {
     return achewoodSearchUrl(name);
   }
