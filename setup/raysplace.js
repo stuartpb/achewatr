@@ -1,12 +1,11 @@
-var mongodb = require("mongodb")
+var mongodb = require('mongodb')
+var jsdom = require('jsdom')
 //Ray's Place has some pretty bad HTML, jsdom's inbuilt parser
 //can't really cut it
-var jsdom = require('hubbub').jsdomConfigure(require("jsdom"));
-var async = require("async")
+var html5 = require('html5')
+var async = require('async')
 
-//from what I can tell, hubbub starts segfaulting when
-//trying to maintain any more than two env calls at once
-var concurrency = 2;
+var concurrency = 5;
 
 function onSuccess(cb){
   return function(err) {
@@ -17,6 +16,8 @@ function onSuccess(cb){
     }
   }
 }
+
+function noop(){}
 
 function RaysPlaceCollector(items){
   return function addRaysPlace(date,title,endCb) {
@@ -56,10 +57,12 @@ mongodb.MongoClient.connect(process.argv[2] || 'mongodb://localhost/default',onS
         db.close()
       }
       callback()
-    })))
+    })),{parser:html5})
   }, concurrency);
 
-  jsdom.env("http://www.achewood.com/raysplace.php?allnav=1", onSuccess(function(window){
+  jsdom.env("http://www.achewood.com/raysplace.php?allnav=1",
+    {parser: html5},
+    onSuccess(function(window){
     var document = window.document
     var nav = document.getElementsByClassName("rayLeftNav")[0];
     var pElems = nav.getElementsByTagName('p');
@@ -80,7 +83,7 @@ mongodb.MongoClient.connect(process.argv[2] || 'mongodb://localhost/default',onS
         document.location.href = 'http://achewood.com/raysplace.php?date='+date.replace(/\./g,'')
 
         //and use this DOM rather than requesting a new page
-        addRaysPlace(date,anchor.textContent.trim(),function(){})(window)
+        addRaysPlace(date,anchor.textContent.trim(),noop)(window)
       }
     }
   }))
