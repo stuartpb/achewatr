@@ -221,8 +221,8 @@ function getLocationForSource(name) {
       return achewoodSearchUrl(name);
     }
   } else if (/^[a-zA-Z0-9\-]+\.blogspot\.com$/.test(parsed.hostname)){
-    var blog = parsed.hostname.split(parsed.hostname.indexOf('.'),1)[0];
-    var path = parsed.hostname.path.replace(/\.html$/,'');
+    var blog = parsed.hostname.slice(0,parsed.hostname.indexOf('.'));
+    var path = parsed.path.replace(/\.html$/,'');
     return '/blogs/' + blog + '/' + path;
   } else {
     return achewoodSearchUrl(name);
