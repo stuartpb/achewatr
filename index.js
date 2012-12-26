@@ -190,7 +190,7 @@ function getLocationForSource(name) {
       protocol: 'http:',
       host: 'www.ohnorobot.com',
       pathname: '/index.pl',
-      search: {
+      query: {
         comic: '636',
         s: query
       }
@@ -220,8 +220,8 @@ function getLocationForSource(name) {
     } else {
       return achewoodSearchUrl(name);
     }
-  } else if (/^[^\.]\.blogspot\.com$/.test(parsed.hostname)){
-    var blog = parsed.hostname.split(0,parsed.hostname.indexOf('.'));
+  } else if (/^[a-zA-Z0-9\-]+\.blogspot\.com$/.test(parsed.hostname)){
+    var blog = parsed.hostname.split(parsed.hostname.indexOf('.'),1)[0];
     var path = parsed.hostname.path.replace(/\.html$/,'');
     return '/blogs/' + blog + '/' + path;
   } else {
