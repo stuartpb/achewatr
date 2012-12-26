@@ -230,7 +230,7 @@ function getLocationForSource(name) {
 }
 
 app.get("/go",function(req,res){
-  res.setHeader('Location',
+  res.set('Location',
       getLocationForSource(req.param('q')))
     .send(302)
 })
