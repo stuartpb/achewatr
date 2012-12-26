@@ -187,11 +187,11 @@ app.get("/list",function(req,res){
 function getLocationForSource(name) {
   function achewoodSearchUrl(query){
     return url.format({
-      protocol: 'http',
+      protocol: 'http:',
       host: 'www.ohnorobot.com',
       pathname: '/index.pl',
       search: {
-        comic: 636,
+        comic: '636',
         s: query
       }
     })
@@ -201,21 +201,21 @@ function getLocationForSource(name) {
 
   if(parsed.hostname == 'achewood.com' ||
     parsed.hostname == 'www.achewood.com'){
-    if (parsed.pathname == 'index.php') {
+    if (parsed.pathname == '/index.php') {
       if(parsed.query.date) {
         return '/achewood/date/' + parsed.query.date
       } else {
         //note redirecting to a redirect page like this is a bad idea
         return '/latest?type=achewood'
       }
-    } else if (parsed.pathname == 'raysplace.php') {
+    } else if (parsed.pathname == '/raysplace.php') {
       if(parsed.query.date) {
         return '/raysplace/date/' + parsed.query.date
       } else {
         //note redirecting to a redirect page like this is a bad idea
         return '/latest?type=raysplace'
       }
-    } else if (parsed.pathname == 'list.php'){
+    } else if (parsed.pathname == '/list.php'){
       return '/list'
     } else {
       return achewoodSearchUrl(name);
