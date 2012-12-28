@@ -28,11 +28,12 @@ function RaysPlaceCollector(items){
     return function(window) {
       var document = window.document
       var rayContent = document.getElementsByClassName('ray')[0].innerHTML
+        //Get rid of the header that we reproduce in the template
         .replace(/^[\s\S]*<span class="rayDate">[^<]*<\/span>\s*(?:<br ?\/?>)?\s*/,'')
         //Spacer paragraphs are bad enough as it is, but they're
         //even worse when they're put at the bottom of an article to
         //have the exact same effect as {margin-bottom:3em}. Nuke 'em.
-        .replace(/(?:\s*<p>\s*(?:<br\s*\/?>\s*)*(?:<\/p>)?\s*)*$/,'')
+        .replace(/(?:\s*<p>\s*(?:(?:<br\s*\/?>\s*)|(?:&nbsp;\s*))*(?:<\/p>)?\s*)*$/,'')
       var href = document.location.href.replace('&allnav=1','')
       items.insert({
         _id: href,
