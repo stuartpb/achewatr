@@ -1,12 +1,13 @@
 #achewatr-content {
   clear: both;
-  background-color: #9c0;
+  background-color: #fff;
   text-align: center;
 }
 
-#comic-footer {
+#comic_footer {
   width: 700px;
   margin: 0 auto;
+  text-align: left;
 }
 
 .visible-alt-text {
