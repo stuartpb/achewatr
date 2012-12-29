@@ -2,11 +2,11 @@
 html
   head
     meta(charset="utf-8")
-    title= active.source +': ' + active.title + ' / achewatr'
+    title= pageTitle + ' / achewatr'
     link(rel="stylesheet", href="/achewatr.css")
     block head
   body
-    nav
+    nav#achewatr-nav
       if prev
         a#achewatr-prev(href=prev.url)
           time.date= prev.date

@@ -95,6 +95,16 @@ var edgeFields = {
   mdydate: 1
 }
 
+function getPageTitle(doc) {
+  if(doc.type == 'achewood')
+    return 'Achewood §' + doc.published.toString('M dd, yyyy');
+  else if(doc.type == 'raysplace')
+    return 'Achewood § Ray\'s Place - ' + doc.title;
+  else if(doc.type == 'blog')
+    return blogInfo[doc.blog].title + ': ' + doc.title;
+  else return null;
+}
+
 function getTrio(activeQuery,onSuccess,cb){
   items.findOne(activeQuery,onSuccess(function(active){
     if(!active) cb(null);
@@ -150,6 +160,10 @@ function renderPage(reqCobbler) {
       if(!trio){
         respondNotFound(req,res)
       } else {
+        if (trio.active.type == 'blog') {
+          trio.blogName = blogInfo[trio.active.blog].title;
+        }
+        trio.pageTitle = getPageTitle(trio.active)
         trio.originalUrl = req.originalUrl
         res.render(cobbled.viewName,trio)
       }
@@ -175,8 +189,7 @@ app.get("/raysplace/date/:date",renderPage(function(req){
 app.get("/blogs/:blog*",renderPage(function(req){
   return { query: {type: 'blog', blog: req.params.blog,
     path: req.params[0] },
-  //viewName: 'blogs/' + req.params.blog };
-  viewName: 'blogs/rbeef' };
+  viewName: 'blogs/' + req.params.blog };
 }))
 app.get("/",function(req,res){
   res.render('index')

@@ -1,0 +1,290 @@
+/*
+* -----------------------------------------------------
+* An achewatr adaptation of a Blogger Template Style
+* Name:     Snapshot: Madder
+* Date:     27 Feb 2004
+* Updated by: Blogger Team
+* ------------------------------------------------------ */
+/* Variable definitions
+====================
+<Variable name="textcolor" description="Text Color"
+type="color" default="#474B4E">
+<Variable name="pagetitlecolor" description="Blog Title Color"
+type="color" default="#7B8186">
+<Variable name="titlecolor" description="Post Title Color"
+type="color" default="#C4663B">
+<Variable name="footercolor" description="Post Footer Color"
+type="color" default="#B4BABE">
+<Variable name="sidebarcolor" description="Sidebar Title Color"
+type="color" default="#7B8186">
+<Variable name="linkcolor" description="Link Color"
+type="color" default="#DD6599">
+<Variable name="visitedlinkcolor" description="Visited Link Color"
+type="color" default="#D6A0B6">
+<Variable name="bodyfont" description="Text Font"
+type="font"
+default="normal normal 100% Helvetica, Arial, sans-serif">
+<Variable name="startSide" description="Start side in blog language"
+type="automatic" default="left">
+<Variable name="endSide" description="End side in blog language"
+type="automatic" default="right">
+*/
+/* -- basic html elements -- */
+a {
+color: #DD6599;
+font-weight: bold;
+text-decoration: none;
+}
+a:visited {
+color: #D6A0B6;
+}
+a:hover {
+text-decoration: underline;
+color: #FD0570;
+}
+h1 {
+margin: 0;
+color: #7B8186;
+font-size: 1.5em;
+text-transform: lowercase;
+}
+h1 a, h1 a:link, h1 a:visited {
+color: #7B8186;
+}
+h2, #comments h4 {
+font-size: 1em;
+margin-top: 2em;
+margin-right: 0;
+margin-bottom: 0;
+margin-left: 0;
+color: #7B8186;
+background: transparent url(http://www.blogblog.com/snapshot/bg-header1_left.gif) bottom right no-repeat;
+padding-bottom: 2px;
+}
+h3 {
+font-size: 1em;
+margin-top: 2em;
+margin-right: 0;
+margin-bottom: 0;
+margin-left: 0;
+background: transparent url(http://www.blogblog.com/snapshot/bg-header1_left.gif) bottom right no-repeat;
+padding-bottom: 2px;
+}
+h4, h5 {
+font-size: 0.9em;
+text-transform: lowercase;
+letter-spacing: 2px;
+}
+h5 {
+color: #7B8186;
+}
+h6 {
+font-size: 0.8em;
+text-transform: uppercase;
+letter-spacing: 2px;
+}
+p {
+margin-top: 0;
+margin-right: 0;
+margin-bottom: 1em;
+margin-left: 0;
+}
+img, form {
+border: 0; margin: 0;
+}
+/* -- layout -- */
+#achewatr-content { /* #outer-wrapper */
+width: 700px;
+margin: 0 auto;
+text-align: left;
+color: #474B4E;
+font: normal normal 100% Helvetica, Arial, sans-serif;
+background: #fff url(http://www.blogblog.com/snapshot/bg-body_left.gif) left top repeat-y;
+}
+header {
+background: transparent url(http://www.blogblog.com/snapshot/header-01_left.gif) bottom left no-repeat;
+position: relative;
+}
+.descriptionwrapper {
+background: #fff url(http://www.blogblog.com/snapshot/bg-sidebar.gif) 1px 0 no-repeat;
+width: 264px;
+padding-top: 0;
+padding-right: 0;
+padding-bottom: 0;
+padding-left: 8px;
+margin-top: 1px;
+margin-right: 0;
+margin-bottom: 2px;
+margin-left: 0;
+position: absolute;
+bottom: 0px;
+right: 0px;
+}
+.description {
+border: 1px solid #F3B89D;
+background: #FFD1BC url(http://www.blogblog.com/snapshot/bg-profile.gif);
+padding-top: 10px;
+padding-right: 0;
+padding-bottom: 10px;
+padding-left: 7px;
+margin-top: 4px;
+margin-right: 0;
+margin-bottom: 0;
+margin-left: -6px;
+color: #C4663B;
+font-weight: bold;
+}
+
+#main {
+line-height: 1.4;
+float: left;
+padding: 10px 12px;
+border-top: solid 1px #fff;
+width: 428px;
+word-wrap: break-word; /* fix for long text breaking sidebar float in IE */
+overflow: hidden;     /* fix for long non-text content breaking IE sidebar float */
+/* Tantek hack - http://www.tantek.com/CSS/Examples/boxmodelhack.html */
+voice-family: "\"}\"";
+voice-family: inherit;
+width: 404px;
+}
+#sidebar {
+float:right;
+border-top: solid 1px #fff;
+padding-top: 4px;
+padding-right: 0;
+padding-bottom: 0;
+padding-left: 7px;
+background: #fff;
+width: 264px;
+word-wrap: break-word; /* fix for long text breaking sidebar float in IE */
+overflow: hidden;     /* fix for long non-text content breaking IE sidebar float */
+}
+#footer {
+clear: both;
+background: #E9EAEB url(http://www.blogblog.com/snapshot/bg-footer_left.gif) bottom left no-repeat;
+border-top: solid 1px #fff;
+min-height: 15px;
+}
+/* -- header style -- */
+#header h1 {
+padding-top: 12px;
+padding-right: 0;
+padding-bottom: 92px;
+padding-left: 4px;
+width: 557px;
+line-height: 1;
+}
+/* -- content area style -- */
+
+.post h3 {
+font-size: 1.2em;
+margin-bottom: 0;
+color: #C4663B;
+}
+.post h3 a,
+.post h3 a:visited {
+color: #C4663B;
+}
+.post {
+clear: both;
+margin-bottom: 4em;
+}
+.post-footer .post-author,
+.post-footer .post-timestamp {
+color: #B4BABE;
+}
+.uncustomized-post-template .post-author,
+.uncustomized-post-template .post-timestamp {
+float: left;
+margin-right: 4px;
+}
+.uncustomized-post-template .post-footer .comment-link {
+float: right;
+margin-left: 4px;
+}
+.post img, table.tr-caption-container {
+border: 1px solid #E3E4E4;
+padding: 2px;
+background: #fff;
+}
+.tr-caption-container img {
+border: none;
+padding: 0;
+}
+.deleted-comment {
+font-style:italic;
+color:gray;
+}
+.feed-links {
+clear: both;
+line-height: 2.5em;
+}
+#blog-pager-newer-link {
+float: left;
+}
+#blog-pager-older-link {
+float: right;
+}
+#blog-pager {
+text-align: center;
+}
+.comment-footer {
+margin-bottom: 10px;
+}
+/* -- sidebar style -- */
+.sidebar .widget {
+margin-top: 1.3em;
+margin-right: 0;
+margin-bottom: 0.5em;
+margin-left: 0;
+}
+.sidebar h2 {
+font-size: 1.3em;
+}
+.sidebar dl {
+margin-top: 0;
+margin-right: 0;
+margin-bottom: 10px;
+margin-left: 0;
+}
+.sidebar ul {
+list-style: none;
+margin: 0;
+padding: 0;
+}
+.sidebar li {
+padding-bottom: 5px;
+line-height: 1
+}
+.main .widget .clear {
+clear: both;
+}
+/* -- sidebar style -- */
+footer p {
+margin: 0;
+padding: 12px 8px;
+font-size: 0.9em;
+}
+.profile-textblock {
+margin-left: 0;
+clear: both;
+}
+.profile-img {
+float: left;
+margin-top: 0;
+margin-right: 10px;
+margin-bottom: 5px;
+margin-left: 0;
+border: 1px solid #7C78B5;
+padding: 4px;
+}
+/** Page structure tweaks for layout editor wireframe */
+body#layout #header-wrapper {
+margin-top: 0;
+}
+body#layout #main-wrapper {
+padding:0;
+}
+
+-->

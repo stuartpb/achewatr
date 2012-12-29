@@ -1,4 +1,3 @@
-
 /*
 -----------------------------------------------
 An achewatr adaptation of a Blogger Template Style
@@ -35,19 +34,15 @@ Date:     27 Feb 2004
 #main {
   width:485px;
   float:left;
-  background:#eec url("http://www.blogblog.com/rounders3/corners_main_bot.gif") no-repeat left bottom;
+  background:#eec;
+  border-radius: 8px;
   margin:15px 0 0;
-  padding:0 0 10px;
+  padding:10px 0;
   color:#333;
   font-size:97%;
   line-height:1.5em;
   }
-#main2 {
-  float:left;
-  width:100%;
-  background:url("http://www.blogblog.com/rounders3/corners_main_top.gif") no-repeat left top;
-  padding:10px 0 0;
-  }
+
 #sidebar {
   width:240px;
   float:right;
@@ -84,10 +79,11 @@ a img {
 
 /* Blog Header
 ----------------------------------------------- */
-#header {
-  background:#357;
+header {
+  background-color: #357;
   padding: 8px 15px;
   color: #fff;
+  border-radius: 8px;
 }
 #blog-title {
   margin:0;
@@ -304,15 +300,13 @@ ul.profile-datablock {
 /* Sidebar Boxes
 ----------------------------------------------- */
 .box {
-  background:#234 url("http://www.blogblog.com/rounders3/corners_side_top.gif") no-repeat left top;
+  background:#234;
   margin:0 0 15px;
-  padding:10px 0 0;
+  padding:10px 13px 8px;
   color:#abc;
+  border-radius: 8px;
   }
-.box2 {
-  background:url("http://www.blogblog.com/rounders3/corners_side_bot.gif") no-repeat left bottom;
-  padding:0 13px 8px;
-  }
+
 .sidebar-title {
   margin:0;
   padding:0 0 .2em;
@@ -347,13 +341,11 @@ ul.profile-datablock {
   padding:15px 0 0;
   }
 #footer div {
-  background:#357 url("http://www.blogblog.com/rounders3/corners_cap_top.gif") no-repeat left top;
-  padding:8px 0 0;
+  background:#357;
+  width:740px;
+  border-radius:8px;
+  padding:8px 15px;
   color:#fff;
-  }
-#footer div div {
-  background:url("http://www.blogblog.com/rounders3/corners_cap_bot.gif") no-repeat left bottom;
-  padding:0 15px 8px;
   }
 #footer hr {display:none;}
 #footer p {margin:0;}
