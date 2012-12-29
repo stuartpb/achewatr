@@ -1,1 +1,15 @@
+#achewatr-content {
+  clear: both;
+  background-color: #9c0;
+  text-align: center;
+}
 
+#comic-footer {
+  width: 700px;
+  margin: 0 auto;
+}
+
+.visible-alt-text {
+  text-align: left;
+  color: #eee;
+}
