@@ -156,20 +156,12 @@ p.post-footer {
   margin:0;
   padding:2px 14px 2px 29px;
   border:1px dotted #bb9;
-  border-bottom:1px solid #eee;
+  border-bottom:1px solid transparent;
   font-size:100%;
+  font-style:normal;
   line-height:1.5em;
   color:#666;
-  text-align:right;
-  }
-html>body p.post-footer {
-  border-bottom-color:transparent;
-  }
-p.post-footer em {
-  display:block;
-  float:left;
   text-align:left;
-  font-style:normal;
   }
 a.comment-link {
   /* IE5.0/Win doesn't apply padding to inline elements,
