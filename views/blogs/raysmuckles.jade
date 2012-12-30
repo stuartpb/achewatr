@@ -4,10 +4,11 @@ block head
   link(rel="stylesheet", href="/blogstyles/rounders-3.css")
 
 block content
-  header
-    h1#blog-title= blogName
-    p#description
+
   #content
+    header#header
+      h1#blog-title= blogName
+      p#description
     #main
       h2.date-header= active.published.toString('dddd, MMMM dd, yyyy')
       article.post
