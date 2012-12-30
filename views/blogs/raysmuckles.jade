@@ -16,13 +16,14 @@ block content
         .post-body!= active.content
       p.post-footer posted by #{active.author || 'me'} at <a href="#{originalUrl}">#{active.published.toString('h:mm tt')}</a>
     #sidebar
-      img(src="http://www.achewood.com/rsrc/img/ray_blog.gif")
-      h2.sidebar-title About Me
-      | NAME: R a y &nbsp; S m u c k l e s, the Main Chochacho of this Whole Place
-      | <br>
-      | LIVES: Achewood Heights, CA
-      | <br>
-      | LIKES: A little T, but not so much A. Not lately, anyway.
+      .box
+        img(src="http://www.achewood.com/rsrc/img/ray_blog.gif")
+        h2.sidebar-title About Me
+        | NAME: R a y &nbsp; S m u c k l e s, the Main Chochacho of this Whole Place
+        | <br>
+        | LIVES: Achewood Heights, CA
+        | <br>
+        | LIKES: A little T, but not so much A. Not lately, anyway.
   footer#footer
     div &nbsp;
 
