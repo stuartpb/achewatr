@@ -74,7 +74,9 @@ function makeQueue(db) {
 }
 
 
-mongodb.MongoClient.connect(process.argv[2],onSuccess(function(db){
+mongodb.MongoClient.connect(process.argv[2],
+  { native_parser:true,auto_reconnect: true },
+  onSuccess(function(db){
   var q = makeQueue(db)
 
   //Get www.achewood.com/list.php
