@@ -4,7 +4,8 @@
   "description": "A unified Achewood strip / blog site.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "index.js"
   },
   "repository": {
     "type": "git",
@@ -28,5 +29,6 @@
   "engines": {
     "node": "0.8.x",
     "npm": "1.1.x"
-  }
+  },
+  "subdomain": "achewatr"
 }
