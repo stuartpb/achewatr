@@ -15,5 +15,4 @@ block content
         .post-body!= active.content
       p.post-footer posted by #{active.author || 'me'} at <a href="#{originalUrl}">#{active.published.toString('h:mm tt')}</a>
     #sidebar
-  footer#footer
-    p &nbsp;
+  footer#footer: p &nbsp;
