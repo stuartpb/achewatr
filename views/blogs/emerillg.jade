@@ -1,7 +1,7 @@
 extends ../achewatr
 
 block head
-  link(rel="stylesheet", href="/blogstyles/minima.css")
+  link(rel="stylesheet", href="/blogstyles/minima-ochre.css")
 
 block content
   header#header
@@ -15,8 +15,5 @@ block content
         .post-body!= active.content
       p.post-footer posted by #{active.author || 'me'} at <a href="#{originalUrl}">#{active.published.toString('h:mm tt')}</a>
     #sidebar
-      h2.sidebar-title About Me
-      | PLACEHOLDER TEMPLATE
-
-
-
+  footer#footer
+    p &nbsp;

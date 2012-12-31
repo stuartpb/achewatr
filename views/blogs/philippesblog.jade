@@ -19,4 +19,5 @@ block content
         h3.post-title= active.title
         .post-body!= active.content
       p.post-footer posted by #{active.author || 'me'} at <a href="#{originalUrl}">#{active.published.toString('h:mm tt')}</a>
-
+    footer#footer
+      p &nbsp;
