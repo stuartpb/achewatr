@@ -4,10 +4,15 @@
   text-align: center;
 }
 
+#comic_body {
+  line-height: 100%;
+}
+
 #comic_footer {
   width: 700px;
-  margin: 0 auto;
+  margin: 4px auto;
   text-align: left;
+  min-height: 1em;
 }
 
 .visible-alt-text {
