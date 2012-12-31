@@ -1,9 +1,3 @@
-## FAQ
-
-### Why do you have all these dependencies that you're only using for setup? Shouldn't you be listing them as devDependencies or something like that?
-
-They'll be runtime dependencies if/when the functionality to update the database in the event Achewood gets updated (fingers crossed) gets introduced.
-
 ## Database collections
 
 ### items

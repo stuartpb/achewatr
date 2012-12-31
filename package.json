@@ -20,12 +20,13 @@
     "jade": "~0.27.7",
     "async": "~0.1.22",
     "queue-async": "~1.0.0",
-    "xdate": "~0.7.0",
+    "xdate": "~0.7.0"
+  },
+  "devDependencies": {
     "jsdom": "~0.3.3",
     "xml-stream": "~0.4.1",
     "html5": "~0.3.8"
   },
-  "devDependencies": {},
   "engines": {
     "node": "0.8.x",
     "npm": "1.1.x"
