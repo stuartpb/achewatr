@@ -4,16 +4,16 @@ block head
   link(rel="stylesheet", href="/blogstyles/897.css")
 
 block content
-  #wrap: #wrap2
+  #wrap: #wrap2.cf
     header#header
       h1#blog-title= blogName
     #description: p
-    #content
+    #content.cf
       #main: #main2
         h2.date-header= active.published.toString('dddd, MMMM dd, yyyy')
         article.post
           h3.post-title= active.title
-          .post-body!= active.content
+          p.post-body!= active.content
           p.post-footer posted by #{active.author || 'me'} at <a href="#{originalUrl}">#{active.published.toString('h:mm TT')}</a>
       #sidebar: #sidebar2
         h2.sidebar-title about me
