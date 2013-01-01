@@ -15,10 +15,11 @@ block content
         .post-body!= active.content
         p.post-footer Posted by #{active.author || 'me'} at <a href="#{originalUrl}">#{active.published.toString('h:mm TT')}</a>
     #sidebar
+      img(src="http://www.achewood.com/rsrc/img/charley_blog.gif")
       //I'll make this less b&br later
       //I already fixed the use of br tags like p tags (lolwut)
       p: big: b Bout Mah'sleff
       p <b>NAME:</b> Cold Ball aka Charley Smuckles THA LEWWD
       p <b>HOOD:</b> Achewood Heightzz yo hella wealthy</br>
       p <b>WE ALL FOOLZ?</b> Hellz yes you all foolz</br>
-  footer#footer: p &nbsp;
+  footer#footer
