@@ -11,7 +11,7 @@ mixin comic
 
 block content
   if active.header
-    #comic_header= active.header
+    #comic_header!= active.header
   #comic_body
     if active.href
       a(href=active.href)

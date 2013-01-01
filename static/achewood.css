@@ -2,11 +2,19 @@
   clear: both;
   background-color: #fff;
   text-align: center;
+  padding-top: 3px;
+}
+
+#comic_header {
+color: red;
+text-align: center;
+margin: 0 auto 3px auto;
+font-size: x-small;
+width: 700px;
 }
 
 #comic_body {
   line-height: 100%;
-  padding-top: 3px;
 }
 
 #comic_footer {
