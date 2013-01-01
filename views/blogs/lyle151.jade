@@ -4,17 +4,19 @@ block head
   link(rel="stylesheet", href="/blogstyles/minima.css")
 
 block content
-  header#header
-    h1#blog-title= blogName
-    p#description
-  #content
-    #main
-      h2.date-header= active.published.toString('dddd, MMMM dd, yyyy')
-      article.post
-        h3.post-title= active.title
-        .post-body!= active.content
-        p.post-footer posted by #{active.author || 'me'} at <a href="#{originalUrl}">#{active.published.toString('h:mm TT')}</a>
-    #sidebar
-      h2.sidebar-title About Me
-      | PLACEHOLDER TEMPLATE
-  footer#footer: p &nbsp;
+  #wrap: #wrap2
+    header#header
+      h1#blog-title= blogName
+    #description: p
+    #content
+      #main: #main2
+        h2.date-header= active.published.toString('dddd, MMMM dd, yyyy')
+        article.post
+          h3.post-title= active.title
+          .post-body!= active.content
+          p.post-footer posted by #{active.author || 'me'} at <a href="#{originalUrl}">#{active.published.toString('h:mm TT')}</a>
+      #sidebar: #sidebar2
+        h2.sidebar-title about me
+        img(src="http://www.achewood.com/rsrc/img/lyle_blog.gif")
+        br
+        b LYLE GABRIEL <br> ACHEWOOD
