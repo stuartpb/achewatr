@@ -93,7 +93,11 @@ img, form {
 border: 0; margin: 0;
 }
 /* -- layout -- */
-#achewatr-content { /* #outer-wrapper */
+#achewatr-content {
+  background-color: #fff;
+}
+
+#outer-wrapper {
 width: 700px;
 margin: 0 auto;
 text-align: left;
