@@ -80,7 +80,7 @@ function fortifyItem(doc){
       doc.source = blogInfo[doc.blog].character
       doc.banner = blogInfo[doc.blog].banner
       doc.url = '/blogs/' + doc.blog + doc.path
-      doc.date = doc.published.toString('MM.dd.yyyy hh:mm tt')
+      doc.date = doc.published.toString('MM.dd.yyyy hh:mm TT')
     }
   }
   return doc;

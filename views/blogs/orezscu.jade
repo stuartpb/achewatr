@@ -17,7 +17,7 @@ block content
         article.post
           h3.post-title= active.title
           .post-body!= active.content
-        p.post-footer posted by #{active.author || 'me'} at <a href="#{originalUrl}">#{active.published.toString('h:mm tt')}</a>
+          p.post-footer Posted by #{active.author || 'me'} at <a href="#{originalUrl}">#{active.published.toString('h:mm TT')}</a>
     #sidebar
       .widget
         h2 Téodor Orezscu
