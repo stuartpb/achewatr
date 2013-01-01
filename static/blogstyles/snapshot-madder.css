@@ -194,8 +194,7 @@ color: #C4663B;
 clear: both;
 margin-bottom: 4em;
 }
-.post-footer .post-author,
-.post-footer .post-timestamp {
+.post-footer {
 color: #B4BABE;
 }
 .uncustomized-post-template .post-author,
