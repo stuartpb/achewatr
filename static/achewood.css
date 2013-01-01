@@ -10,7 +10,7 @@
 
 #comic_footer {
   width: 700px;
-  margin: 4px auto;
+  margin: 0 auto 4px;
   text-align: left;
   min-height: 1em;
 }
