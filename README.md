@@ -1,4 +1,12 @@
-## Database collections
+# achewatr #
+
+A site presenting all Achewood strips, columns, and blogs in one clean, unified context.
+
+## Setting up
+
+Install the devDependencies, then run the 4 scripts in the 'setup' directory with the URL of your target MongoDB database. (Note that the scripts have a tendency for clusters of insert operations to time out when pushing to MongoLab, so either find a way to fix that, or set up to a local database and dump/export and import that with the standard Mongo tools after completion.)
+
+## Database layout
 
 ### items
 
