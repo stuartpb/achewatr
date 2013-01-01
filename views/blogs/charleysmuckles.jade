@@ -1,20 +1,24 @@
 extends ../achewatr
 
 block head
-  link(rel="stylesheet", href="/blogstyles/minima.css")
+  link(rel="stylesheet", href="/blogstyles/washed-denim.css")
 
 block content
   header#header
-    h1#blog-title= blogName
-    p#description
+    h1.title= blogName
+    p.description
   #content
     #main
       h2.date-header= active.published.toString('dddd, MMMM dd, yyyy')
       article.post
         h3.post-title= active.title
         .post-body!= active.content
-      p.post-footer posted by #{active.author || 'me'} at <a href="#{originalUrl}">#{active.published.toString('h:mm tt')}</a>
+        p.post-footer Posted by #{active.author || 'me'} at <a href="#{originalUrl}">#{active.published.toString('h:mm TT')}</a>
     #sidebar
-      h2.sidebar-title About Me
-      | PLACEHOLDER TEMPLATE
+      //I'll make this less b&br later
+      //I already fixed the use of br tags like p tags (lolwut)
+      p: big: b Bout Mah'sleff
+      p <b>NAME:</b> Cold Ball aka Charley Smuckles THA LEWWD
+      p <b>HOOD:</b> Achewood Heightzz yo hella wealthy</br>
+      p <b>WE ALL FOOLZ?</b> Hellz yes you all foolz</br>
   footer#footer: p &nbsp;
