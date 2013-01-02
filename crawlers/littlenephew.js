@@ -12,7 +12,7 @@ Pain in the *ass*.
 var http = require("http")
 var url = require("url")
 var XmlStream = require("xml-stream")
-var env = require("jsdom").env
+var jsdom = require("jsdom")
 var queue = require("queue-async")
 
 function onSuccess(cb){
@@ -56,7 +56,7 @@ module.exports = function(env,insert,finish) {
     item.path = urlobj.path.replace(/.html$/,'')
 
     q.defer(function(finishCb){
-      env(location,onSuccess(function(window){
+      jsdom.env(location,onSuccess(function(window){
         var document = window.document;
         var content = document.getElementsByClassName('post-body')[0];
 
