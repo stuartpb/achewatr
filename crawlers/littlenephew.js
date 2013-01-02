@@ -9,14 +9,11 @@ I have to follow the links and fetch each post.
 Pain in the *ass*.
 */
 
-var mongodb = require("mongodb");
 var http = require("http")
 var url = require("url")
 var XmlStream = require("xml-stream")
 var env = require("jsdom").env
 var queue = require("queue-async")
-
-var concurrency = 5;
 
 function onSuccess(cb){
   return function(err) {
@@ -28,13 +25,8 @@ function onSuccess(cb){
   }
 }
 
-console.log("Connecting to "+process.argv[2]+' ...');
-mongodb.MongoClient.connect(process.argv[2],onSuccess(function(db){
-  console.log("Connected.");
-
-  var items = db.collection('items')
-  var q = queue(concurrency);
-
+module.exports = function(env,insert,finish) {
+  var q = queue(env.concurrency)
   function entryHandler(entry){
     //The document that will be added to the database.
     var item = {
@@ -44,6 +36,10 @@ mongodb.MongoClient.connect(process.argv[2],onSuccess(function(db){
     item.title = entry.title.$text
     //date from the published element (not the updated tag)
     item.published = new Date(entry.published)
+    //time offset
+    var offset = entry.published.match(/([\+\-])(\d\d)\:?(\d\d)?$/)
+    item.offsetmins = (offset[1] == '-' ? -1 : 1) *
+      (60 * offset[2] + parseInt(offset[3]))
 
     //Grab the path from the href of the link tag with rel="alternate"
     var location
@@ -61,16 +57,16 @@ mongodb.MongoClient.connect(process.argv[2],onSuccess(function(db){
 
     q.defer(function(finishCb){
       env(location,onSuccess(function(window){
-        var document = window.document
-        var content = document.getElementsByClassName('post-body')[0]
+        var document = window.document;
+        var content = document.getElementsByClassName('post-body')[0];
+
         //remove the clearfix div at the end of the content
-        var divs = content.getElementsByTagName('div')
-        content.removeChild(divs[divs.length-1])
-        item.content = content.innerHTML.trim()
-        items.insert(item,function(result){
-          console.log(': ' + location)
-          finishCb()
-        })
+        var divs = content.getElementsByTagName('div');
+        content.removeChild(divs[divs.length-1]);
+        item.content = content.innerHTML.trim();
+
+        insert(item);
+        finishCb();
       }))
     })
   }
@@ -82,16 +78,11 @@ mongodb.MongoClient.connect(process.argv[2],onSuccess(function(db){
     var xml = new XmlStream(response);
 
     //Expect multiple link tags
-    xml.collect('entry link')
+    xml.collect('entry link');
     //Get the data from each entry:
     xml.on('updateElement: entry',entryHandler);
     xml.on('end',function(){
-      q.awaitAll(function(){
-        console.log('Disconnecting from database...');
-        db.close()
-      })
+      q.awaitAll(onSuccess(finish))
     })
   });
-
-
-}));
+};

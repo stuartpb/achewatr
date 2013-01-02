@@ -1,29 +1,26 @@
 "use strict";
 
-var mongodb = require('mongodb')
-var jsdom = require('jsdom')
+var jsdom = require('jsdom');
 //Ray's Place has some pretty bad HTML, jsdom's inbuilt parser
 //can't really cut it
-var browser = require("jsdom/lib/jsdom/browser/index");
+var browser = require('jsdom/lib/jsdom/browser/index');
 browser.setDefaultParser(require('html5'));
 
-var queue = require('queue-async')
-
-var concurrency = 5;
+var queue = require('queue-async');
 
 function onSuccess(cb){
   return function(err) {
     if (err) {
-      console.error(err)
+      throw err;
     } else {
-      cb.apply(this,Array.prototype.slice.call(arguments,1))
+      cb.apply(this,Array.prototype.slice.call(arguments,1));
     }
-  }
+  };
 }
 
 function noop(){}
 
-function RaysPlaceCollector(items){
+function RaysPlaceCollector(insert){
   return function addRaysPlace(date,title,endCb) {
     return function(window) {
       var document = window.document
@@ -35,38 +32,34 @@ function RaysPlaceCollector(items){
         //have the exact same effect as {margin-bottom:3em}. Nuke 'em.
         .replace(/(?:\s*<p>\s*(?:(?:<br\s*\/?>\s*)|(?:&nbsp;\s*))*(?:<\/p>)?\s*)*$/,'')
       var href = document.location.href.replace('&allnav=1','')
-      items.insert({
+      insert({
         _id: href,
         title: title,
         published: new Date(date),
         type: 'raysplace',
         mdydate: date.replace(/\./g,''),
         content: rayContent
-      },onSuccess(function(result){
-        console.log(": "+result[0]._id)
-      }));
+      });
       endCb();
     }
   }
 }
 
-mongodb.MongoClient.connect(process.argv[2] || 'mongodb://localhost/default',onSuccess(function(db){
-  var addRaysPlace = RaysPlaceCollector(db.collection('items'));
+module.exports = function(env,insert,finish){
+  var addRaysPlace = RaysPlaceCollector(insert);
 
-  var q = queue(concurrency)
+  var q = queue(env.concurrency)
 
   var getRaysPlace= function(href, date, title, callback) {
     console.log('Fetching '+href+' ...')
     jsdom.env({
       html: href,
-      //parser: html5,
       done: onSuccess(addRaysPlace(date, title, callback))
     })
   };
 
   jsdom.env({
     html: "http://www.achewood.com/raysplace.php?allnav=1",
-    //parser: html5,
     done: onSuccess(function(window){
       var document = window.document
       var nav = document.getElementsByClassName("rayLeftNav")[0];
@@ -93,12 +86,7 @@ mongodb.MongoClient.connect(process.argv[2] || 'mongodb://localhost/default',onS
         }
       }
 
-      q.awaitAll(function(err,results){
-        console.log("Closing connection...")
-        db.close()
-      });
+      q.awaitAll(onSuccess(finish));
     })
   });
-
-
-}))
+}

@@ -1,4 +1,3 @@
-var mongodb = require("mongodb")
 var http = require("http")
 var url = require("url")
 var XmlStream = require("xml-stream")
@@ -17,7 +16,7 @@ var blogs = [
   "emerillg" //Emeril
 ]
 
- function itemDocumentFromEntry(entry) {
+function itemDocumentFromEntry(entry) {
   //The document that will be added to the database.
   var item = {
     type: 'blog'}
@@ -25,7 +24,19 @@ var blogs = [
   item.title = entry.title.$text
   //date from the published element (not the updated tag)
   item.published = new Date(entry.published)
+  //time offset
+  var offset = entry.published.match(/([\+\-])(\d\d)\:?(\d\d)?$/)
+  item.offsetmins = (offset[1] == '-' ? -1 : 1) *
+    (60 * offset[2] + parseInt(offset[3]))
+
   //content from the content tag
+  if(entry.content.$text){
+    //with the <div class="blogger-post-footer"> content tracker removed
+    item.content = entry.content.$text
+      .replace(/<div class="blogger-post-footer">.*?<\/div>/,'')
+  } else {
+    item.content = ''
+  }
 
   //Grab the author name from the name tag of the author tag
   var arname = entry.author.name
@@ -55,31 +66,7 @@ var blogs = [
   //Why yes, yes it does!
   item.blog = urlobj.hostname.split('.',1)[0]
 
-  if(entry.content){
-    if(entry.content.$text){
-      //with the <div class="blogger-post-footer"> content tracker removed
-      item.content = entry.content.$text
-        .replace(/<div class="blogger-post-footer">.*?<\/div>/,'')
-    } else {
-      item.content = ''
-    }
-  } else {
-    (function(entry){console.log("!!! OH NO: ",entry)})(location)
-    return null;
-  }
-
   return item;
-}
-
-function addItemFromEntry(items){
-  return function(entry) {
-    var doc = itemDocumentFromEntry(entry)
-    if(doc)
-      items.insert(doc,onSuccess(function(result){
-        console.log(": "+result[0]._id)
-      }
-    ))
-  }
 }
 
 function populateFromBlog(blogname,entryHandler,endcb) {
@@ -101,32 +88,29 @@ function populateFromBlog(blogname,entryHandler,endcb) {
 function onSuccess(cb){
   return function(err) {
     if (err) {
-      console.error(err)
+      throw err;
     } else {
       cb.apply(this,Array.prototype.slice.call(arguments,1))
     }
   }
 }
 
-console.log("Connecting to "+process.argv[2]+' ...')
-mongodb.MongoClient.connect(process.argv[2],
-  onSuccess(function(db) {
-    var items = db.collection('items')
-    var entryHandler = addItemFromEntry(items)
-    function populateNextBlog(index){
-      if (index < blogs.length) {
-        console.log('Populating ' + blogs[index] + '....')
-        populateFromBlog(blogs[index],
-          entryHandler,
-          function(){
-            console.log(blogs[index] + ' population completed.')
-            populateNextBlog(index+1)
-          })
-      } else {
-        console.log('Closing DB...')
-        db.close();
-      }
+module.exports = function(env,insert,finish){
+  function entryHandler(entry){
+    insert(itemDocumentFromEntry(entry))
+  }
+  function populateNextBlog(index){
+    if (index < blogs.length) {
+      console.log('Populating ' + blogs[index] + '....')
+      populateFromBlog(blogs[index],
+        entryHandler,
+        function(){
+          console.log(blogs[index] + ' population completed.')
+          populateNextBlog(index+1)
+        })
+    } else {
+      finish()
     }
-    populateNextBlog(0)
-  })
-)
+  }
+  populateNextBlog(0)
+}
