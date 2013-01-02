@@ -4,7 +4,11 @@ A site presenting all Achewood strips, columns, and blogs in one clean, unified 
 
 ## Setting up
 
-Install the devDependencies, then run the 4 scripts in the 'setup' directory with the URL of your target MongoDB database. (Note that the scripts have a tendency for clusters of insert operations to time out when pushing to MongoLab, so either find a way to fix that, or set up to a local database and dump/export and import that with the standard Mongo tools after completion.)
+Install the devDependencies, then run setup.js with the `mongodb://` URL of your database as the first command line argument to the script.
+
+Note that large clusters of insertions to MongoLab databases have a tendency to fail by timing out, so you may want to do the insertions to a locally-running database, dump/export the `items` collection from the local, then restore/import the dump to the remote server.
+
+You can also just produce the JSON that would be exported (allowing you to skip the local server and export steps) by running setup.js with `--method export` and the desired filename instead of the server URL.
 
 ## Database layout
 
