@@ -125,17 +125,13 @@ a img {
   margin:0 0 .75em;
   line-height:1.6em;
   }
-p.post-footer {
+.post-footer {
   margin:0;
-  text-align:right;
-  }
-p.post-footer em {
   display:block;
   float:left;
   text-align:left;
   font-style:normal;
-  color:#996;
-  }
+  color:#996;  }
 a.comment-link {
   /* IE5.0/Win doesn't apply padding to inline elements,
      so we hide these two declarations from it */
