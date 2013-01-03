@@ -9,51 +9,51 @@ I have to follow the links and fetch each post.
 Pain in the *ass*.
 */
 
-var http = require("http")
-var url = require("url")
-var XmlStream = require("xml-stream")
-var jsdom = require("jsdom")
-var queue = require("queue-async")
+var http = require("http");
+var url = require("url");
+var XmlStream = require("xml-stream");
+var jsdom = require("jsdom");
+var queue = require("queue-async");
 
 function onSuccess(cb){
   return function(err) {
     if (err) {
-      console.error(err)
+      console.error(err);
     } else {
-      cb.apply(this,Array.prototype.slice.call(arguments,1))
+      cb.apply(this,Array.prototype.slice.call(arguments,1));
     }
-  }
+  };
 }
 
 module.exports = function(env,insert,finish) {
-  var q = queue(env.concurrency)
+  var q = queue(env.concurrency);
   function entryHandler(entry){
     //The document that will be added to the database.
     var item = {
       type: 'blog',
-      blog: 'charleysmuckles'}
+      blog: 'charleysmuckles'};
     //title from the title element
-    item.title = entry.title.$text
+    item.title = entry.title.$text;
     //date from the published element (not the updated tag)
-    item.published = new Date(entry.published)
+    item.published = new Date(entry.published);
     //time offset
-    var offset = entry.published.match(/([\+\-])(\d\d)\:?(\d\d)?$/)
+    var offset = entry.published.match(/([\+\-])(\d\d)\:?(\d\d)?$/);
     item.offsetmins = (offset[1] == '-' ? -1 : 1) *
-      (60 * offset[2] + parseInt(offset[3]))
+      (60 * offset[2] + parseInt(offset[3],10));
 
     //Grab the path from the href of the link tag with rel="alternate"
-    var location
+    var location;
     //Search backwards through the link elements: will probably be the last one,
     //but handle the case where it's not
     for(var i = entry.link.length-1; i >= 0 && !location; --i){
-      var link = entry.link[i]
+      var link = entry.link[i];
       if (link.$.rel == 'alternate') {
-        location = link.$.href
+        location = link.$.href;
       }
     }
-    item._id = location
-    var urlobj = url.parse(location)
-    item.path = urlobj.path.replace(/.html$/,'')
+    item._id = location;
+    var urlobj = url.parse(location);
+    item.path = urlobj.path.replace(/.html$/,'');
 
     q.defer(function(finishCb){
       jsdom.env(location,onSuccess(function(window){
@@ -67,11 +67,11 @@ module.exports = function(env,insert,finish) {
 
         insert(item);
         finishCb();
-      }))
-    })
+      }));
+    });
   }
 
-  var request = http.get({
+  http.get({
     host: 'charleysmuckles.blogspot.com',
     path: '/atom.xml?max-results=65536'
   }, function(response) {
@@ -82,7 +82,7 @@ module.exports = function(env,insert,finish) {
     //Get the data from each entry:
     xml.on('updateElement: entry',entryHandler);
     xml.on('end',function(){
-      q.awaitAll(onSuccess(finish))
-    })
+      q.awaitAll(onSuccess(finish));
+    });
   });
 };
