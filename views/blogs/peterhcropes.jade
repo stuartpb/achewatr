@@ -14,7 +14,7 @@ block content
     a &nbsp;
     if active.title
       h2= active.title
-    | #!{active.content}
+    | !{active.content}
     br
     .byline <a href="#{originalUrl}">#</a> posted by #{active.author || 'me'} @ #{active.blogDate.toString('h:mm TT')}
   #sideBar
