@@ -94,7 +94,7 @@ function fortifyItem(doc){
       //wild bug chase), and that means we can re-use the non-offset
       //.published value if we ever need to, and have a way of distinguishing
       //what we want.
-      doc.blogDate = doc.published.clone().addMinutes(doc.offsetmins);
+      doc.blogDate = XDate(doc.published).addMinutes(doc.offsetmins);
 
       doc.date = doc.blogDate.toString('ddd MM.dd.yyyy hh:mm TT');
     }
@@ -108,7 +108,8 @@ var edgeFields = {
   type: 1,
   blog: 1,
   path: 1,
-  mdydate: 1
+  mdydate: 1,
+  offsetmins: 1
 };
 
 function getPageTitle(doc) {
