@@ -5,7 +5,7 @@
 * The content of the style tag was copied and it was pasted into the
 * blogstyles directory. Indentation was moved and selectors were changed. */
 
-#achewatr-content{margin:0px;padding:0px;background:#f6f6f6;color:#000000;font-family:"Trebuchet MS",Trebuchet,Verdana,Sans-Serif;}
+#achewatr-content{margin:0px;padding:0px;background:#f6f6f6;color:#000000;font-family:"Trebuchet MS",Trebuchet,Verdana,Sans-Serif;font-size:16px;}
 a{color:#DE7008;}
 a:hover{color:#E0AD12;}
 #logo{padding:0px;margin:0px;}
