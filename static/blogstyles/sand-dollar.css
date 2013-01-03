@@ -1,9 +1,6 @@
 /*
-* The achewatr adaptation of the CSS on Nice Pete's blog.
-* Nice Pete's blog didn't have a Blogger Template Style header comment.
-* In fact, Nice Pete's blog's CSS didn't have any comments at all.
-* The content of the style tag was copied and it was pasted into the
-* blogstyles directory. Indentation was moved and selectors were changed. */
+* An achewatr adaptation of one of the oldest Blogger Template Styles.
+* The CSS for Sand Dollar was written before Blogspot used comments. */
 
 #achewatr-content{margin:0px;padding:0px;background:#f6f6f6;color:#000000;font-family:"Trebuchet MS",Trebuchet,Verdana,Sans-Serif;font-size:16px;}
 a{color:#DE7008;}
