@@ -81,6 +81,12 @@ function fortifyItem(doc){
       doc.banner = blogInfo[doc.blog].banner;
       doc.url = '/blogs/' + doc.blog + doc.path;
       doc.date = doc.published.toString('ddd MM.dd.yyyy hh:mm TT');
+      //Change the published time to the local time zone -
+      //it's kept in UTC for sort order, but at this point,
+      //it's going to be used for date display.
+
+      //This isn't perfect but, really, it's good enough
+      doc.published.addMinutes(doc.offsetmins);
     }
   }
   return doc;
