@@ -11,7 +11,8 @@ block content
     #main
       h2.date-header= active.blogDate.toString('dddd, MMMM dd, yyyy')
       article.post
-        h3.post-title= active.title
+        if active.title
+          h3.post-title= active.title
         .post-body!= active.content
         p.post-footer Posted by #{active.author || 'me'} at <a href="#{originalUrl}">#{active.blogDate.toString('h:mm TT')}</a>
     #sidebar

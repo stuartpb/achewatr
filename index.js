@@ -118,7 +118,11 @@ function getPageTitle(doc) {
   else if(doc.type == 'raysplace')
     return 'Achewood § Ray\'s Place - ' + doc.title;
   else if(doc.type == 'blog')
-    return blogInfo[doc.blog].title + ': ' + doc.title;
+    if(doc.title){
+      return blogInfo[doc.blog].title + ': ' + doc.title;
+    } else {
+      return blogInfo[doc.blog].title;
+    }
   else return null;
 }
 
