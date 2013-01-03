@@ -89,7 +89,7 @@ function fortifyItem(doc){
       //If you tried to just change the published date, that would interfere
       //with the previous and last posts in getTrio,
       //so we don't do that, OK?
-      doc.blogDate = XDate(doc.published).addMinutes(doc.offsetmins);
+      doc.blogDate = doc.published.clone().addMinutes(doc.offsetmins);
 
       doc.date = doc.blogDate.toString('ddd MM.dd.yyyy hh:mm TT');
     }
