@@ -86,10 +86,15 @@ function fortifyItem(doc){
       //a date that includes the timezone offset it wouldn't be included),
       //but it's good enough (we never do that)
 
-      //If you tried to just change the published date, that would interfere
-      //with the previous and last posts in getTrio,
-      //so we don't do that, OK?
-      doc.blogDate = doc.published;//.clone().addMinutes(doc.offsetmins);
+      //Originally the offset was applied straight to .published so everything
+      //that worked with .published would be offset, the thinking being that
+      //the only things using .published after fortification were
+      //presentational. That's still probably true, but those presentational
+      //uses (in the templates) were changed to use blogDate afterward (in a
+      //wild bug chase), and that means we can re-use the non-offset
+      //.published value if we ever need to, and have a way of distinguishing
+      //what we want.
+      doc.blogDate = doc.published.clone().addMinutes(doc.offsetmins);
 
       doc.date = doc.blogDate.toString('ddd MM.dd.yyyy hh:mm TT');
     }
