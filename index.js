@@ -80,13 +80,21 @@ function fortifyItem(doc){
       doc.source = blogInfo[doc.blog].character;
       doc.banner = blogInfo[doc.blog].banner;
       doc.url = '/blogs/' + doc.blog + doc.path;
-      doc.date = doc.published.toString('ddd MM.dd.yyyy hh:mm TT');
-      //Change the published time to the local time zone -
-      //it's kept in UTC for sort order, but at this point,
-      //it's going to be used for date display.
 
-      //This isn't perfect but, really, it's good enough
+      //Change the published time to the local time zone -
+      //it's kept in UTC in the database for sort order, but at this point,
+      //it's only going to be used for date display, where we want it
+      //precise to the local time and offset.
+
+      //(achewoods and raysplaces are in the correct date, and would have the
+      // same result if we offset them for output.)
+
+      //This isn't perfect (if you were to use some kind of output that includes
+      //time zone offset it wouldn't output this offset correctly)
+      //but, really, it's good enough (we're never using that kind of output)
       doc.published.addMinutes(doc.offsetmins);
+
+      doc.date = doc.published.toString('ddd MM.dd.yyyy hh:mm TT');
     }
   }
   return doc;
