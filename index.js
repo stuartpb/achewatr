@@ -81,20 +81,17 @@ function fortifyItem(doc){
       doc.banner = blogInfo[doc.blog].banner;
       doc.url = '/blogs/' + doc.blog + doc.path;
 
-      //Change the published time to the local time zone -
-      //it's kept in UTC in the database for sort order, but at this point,
-      //it's only going to be used for date display, where we want it
-      //precise to the local time and offset.
+      //Blogs use a different, local-time-offset version of the date
+      //for local time printing - this isn't perfect (if you were to output
+      //a date that includes the timezone offset it wouldn't be included),
+      //but it's good enough (we never do that)
 
-      //(achewoods and raysplaces are in the correct date, and would have the
-      // same result if we offset them for output.)
+      //If you tried to just change the published date, that would interfere
+      //with the previous and last posts in getTrio,
+      //so we don't do that, OK?
+      doc.blogDate = XDate(doc.published).addMinutes(doc.offsetmins);
 
-      //This isn't perfect (if you were to use some kind of output that includes
-      //time zone offset it wouldn't output this offset correctly)
-      //but, really, it's good enough (we're never using that kind of output)
-      doc.published.addMinutes(doc.offsetmins);
-
-      doc.date = doc.published.toString('ddd MM.dd.yyyy hh:mm TT');
+      doc.date = doc.blogDate.toString('ddd MM.dd.yyyy hh:mm TT');
     }
   }
   return doc;
