@@ -218,6 +218,46 @@ app.get("/",function(req,res){
 app.get("/list",function(req,res){
 });
 
+function getLocationForDocument(doc){
+  if(doc.type == 'achewood'){
+    return '/achewood/date/'+doc.mdydate;
+  } else if(doc.type == 'raysplace') {
+    return '/raysplace/date/'+doc.mdydate;
+  } else if(doc.type == 'blog') {
+    return '/blogs/'+doc.blog+doc.path;
+  } else return null;
+}
+
+function redirectToDocLocation(doc,res){
+  if(doc){
+    res.set('Location',
+        getLocationForDocument(doc))
+      .send(302);
+  } else {
+    res.render('notfound');
+  }
+}
+
+function redirectToLatest(type,res){
+  var onSuccess = errHandlingCb(errResponse(res));
+  var query = {};
+  if(type) query.type = type;
+  items.find(query,
+    { type: 1,
+      blog: 1,
+      mdydate: 1,
+      path: 1},
+    { limit:1,
+      sort: {published: -1}},
+    onSuccess(function(cursor){cursor.next(onSuccess(function(doc){
+      redirectToDocLocation(doc,res);
+    }))}));
+}
+
+app.get("/latest",function(req,res){
+  redirectToLatest(req.query.type,res);
+});
+
 function getLocationForSource(name) {
   function achewoodSearchUrl(query){
     return url.format({
