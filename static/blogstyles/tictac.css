@@ -161,8 +161,8 @@ h3.post-title {
 
 .post {
   margin: 0 0 1.5em 0;
-  padding: 0 0 1.5em 14px;
-  border-bottom: 1px solid #ddd;
+  padding: 0;
+  border: none;
   }
 
 .post-footer {
