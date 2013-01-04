@@ -4,11 +4,12 @@ block head
   link(rel="stylesheet", href="/raysplace.css")
 
 block content
-  article
+  article#ray
     header
       hgroup
-        h1 Ray's Place
-        h2 All the Latest Thoughts & Ideas from Ray
-      img(src = "http://achewood.com/rsrc/img/raysplace.gif", alt = "Tap, tap, tap")
-      time= active.published.toString('MMM d, yyyy')
+        h1.rayTitle Ray's Place
+        h2.raySubtitle All the Latest Thoughts & Ideas from Ray
+      .tapTapTap
+        img(src = "http://achewood.com/rsrc/img/raysplace.gif", alt = "Tap, tap, tap")
+      time.rayDate= active.published.toString('MMM d, yyyy')
     #rayContent!= active.content
