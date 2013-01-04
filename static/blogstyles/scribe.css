@@ -74,14 +74,12 @@ a:active {color:#956839;}
 	display:block;
 }
 #main-content {
-	width:700px;
+	width:600px;
 	background:#FFF3DB url("http://www.blogblog.com/scribe/bg_paper_mid.jpg") repeat-y;
 	margin:0;
 	text-align:left;
 	display:block;
-}
-#inner-wrap {
-	padding:0 50px;
+  padding: 0 50px;
 }
 #blog-header {
 	margin-bottom:12px;
