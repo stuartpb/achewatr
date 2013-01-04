@@ -36,32 +36,7 @@ mongodb.MongoClient.connect(mongoUri,function(err,db){
   items = db.collection('items');
 });
 
-var blogInfo = {
-  raysmuckles: { title: 'Hey, Chochachos!',
-    character: 'Ray', banner: 'ray' },
-  rbeef: { title: 'grep',
-    character: 'Roast Beef', banner: 'rbeef' },
-  journeyintoreason: { title: 'A Journey Into Reason',
-    character: 'Pat', banner: 'pat' },
-  orezscu: { title: 'The Goldheart Mountaintop Queen Directory',
-    character: 'Téodor', banner: 'teodor' },
-  philippesblog: { title: 'Huuugs!',
-    character: 'Philippe', banner: 'philippe' },
-  corneliusbear: { title: 'Drones Club',
-    character: 'Mr. Bear', banner: 'cornelius' },
-  lyle151: { title: 'Ace of Spades',
-    character: 'Lyle', banner: 'lyle' },
-  mollysanders: { title: 'Molly Says',
-    character: 'Molly', banner: 'molly' },
-  chrisonstad: { title: '"Awesome!" A Blog.',
-    character: 'Chris', banner: 'chris' },
-  peterhcropes: { title: 'Peter H. Cropes',
-    character: 'Nice Pete', banner: 'nicepete' },
-  charleysmuckles: { title: 'Tha Billet!',
-    character: 'Little Nephew', banner: 'littlenephew' },
-  emerillg: { title: 'Emeril LeGoinegasque',
-    character: 'Emeril', banner: 'emeril' }
-};
+var blogInfo = require("./data/bloginfo.json");
 
 function fortifyItem(doc){
   if(doc){
@@ -83,7 +58,7 @@ function fortifyItem(doc){
 
       //Blogs use a different, local-time-offset version of the date
       //for local time printing - this isn't perfect (if you were to output
-      //a date that includes the timezone offset it wouldn't be included),
+      //a date that includes the timezone offset, the trick would be revealed),
       //but it's good enough (we never do that)
 
       //Originally the offset was applied straight to .published so everything
