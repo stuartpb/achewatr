@@ -224,7 +224,7 @@ function redirectToLatest(type,res){
       path: 1},
     { limit:1,
       sort: {published: -1}},
-    onSuccess(function(cursor){cursor.next(onSuccess(function(doc){
+    onSuccess(function(cursor){cursor.nextObject(onSuccess(function(doc){
       redirectToDocLocation(doc,res);
     }))}));
 }
