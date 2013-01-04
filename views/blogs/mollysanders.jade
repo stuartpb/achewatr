@@ -1,21 +1,25 @@
 extends ../achewatr
 
 block head
-  link(rel="stylesheet", href="/blogstyles/minima.css")
+  link(rel="stylesheet", href="/blogstyles/tictac.css")
 
 block content
-  header#header
-    h1#blog-title= blogName
-    p#description
-  #content
-    #main
-      h2.date-header= active.blogDate.toString('dddd, MMMM dd, yyyy')
-      article.post
-        if active.title
-          h3.post-title= active.title
-        .post-body!= active.content
-        p.post-footer posted by #{active.author || 'me'} at <a href="#{originalUrl}">#{active.blogDate.toString('h:mm TT')}</a>
+  #wrap
+    header#blog-header
+      h1= blogName
+    #content
+      #main-content
+        h2.date-header= active.blogDate.toString('dddd, MMMM dd, yyyy')
+        article.post
+          if active.title
+            h3.post-title= active.title
+          .post-body: p!= active.content
+          p.post-footer posted by #{active.author || 'me'} at <a href="#{originalUrl}">#{active.blogDate.toString('h:mm TT')}</a>
     #sidebar
-      h2.sidebar-title About Me
-      | PLACEHOLDER TEMPLATE
-  footer#footer: p &nbsp;
+      h2.sidebar-title About
+      img(src="http://www.achewood.com/rsrc/img/molly_blog.gif")
+      br
+      | <b>Molly Sanders</b>, aka Miss Lady.<br>
+      | Blogging at you live from Achewood, CA! Roast Beef is my game, and living with him is lame.
+    .clear
+    footer#footer: p &nbsp;
