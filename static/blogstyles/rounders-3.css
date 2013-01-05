@@ -15,17 +15,11 @@ Date:     27 Feb 2004
   text-align:center;
   font:x-small/1.5em "Trebuchet MS",Verdana,Arial,Sans-serif;
   color:#ccc;
-  font-size/* */:/**/small;
-  font-size: /**/small;
   }
 
 
 /* Page Structure
 ----------------------------------------------- */
-/* The images which help create rounded corners depend on the
-   following widths and measurements. If you want to change
-   these measurements, the images will also need to change.
-   */
 #content {
   width:740px;
   margin:0 auto;
@@ -141,12 +135,8 @@ header {
   }
 .post-body {
   border:1px dotted #bb9;
-  border-width:0 1px 1px;
-  border-bottom-color:#eec;
+  border-width:0 1px;
   padding:10px 14px 1px 29px;
-  }
-html>body .post-body {
-  border-bottom-width:0;
   }
 .post p {
   margin:0 0 .75em;
@@ -164,13 +154,6 @@ p.post-footer {
   text-align:left;
   }
 a.comment-link {
-  /* IE5.0/Win doesn't apply padding to inline elements,
-     so we hide these two declarations from it */
-  background/* */:/**/url("http://www.blogblog.com/rounders3/icon_comment.gif") no-repeat 0 45%;
-  padding-left:14px;
-  }
-html>body a.comment-link {
-  /* Respecified, for IE5/Mac's benefit */
   background:url("http://www.blogblog.com/rounders3/icon_comment.gif") no-repeat 0 45%;
   padding-left:14px;
   }
@@ -309,7 +292,7 @@ ul.profile-datablock {
   }
 .box ul {
   margin:.5em 0 1.25em;
-  padding:0 0px;
+  padding:0;
   list-style:none;
   }
 .box ul li {
