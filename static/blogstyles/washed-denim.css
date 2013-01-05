@@ -43,12 +43,10 @@ type="automatic" default="right">
 #achewatr-content {
 background: #ffffff;
 margin: 0;
-padding: 0px;
-font: normal normal 100% Verdana, Arial, sans-serif;
+padding: 0;
+font: normal normal small Verdana, Arial, sans-serif;
 text-align: center;
 color: #333333;
-font-size/* */:/**/small;
-font-size: /**/small;
 }
 a:link {
 color: #336699;
@@ -124,6 +122,13 @@ overflow: hidden;      /* fix for long non-text content breaking IE sidebar floa
 h2, h3 {
 margin: 0;
 }
+
+h2.sidebar-title {
+  margin: 1em 0 2em;
+  font-size: 125%;
+  font-weight: bold;
+  line-height: 1.1em;
+}
 /* Posts
 ----------------------------------------------- */
 .date-header {
@@ -148,9 +153,8 @@ text-decoration: none;
 color: #333333;
 font-weight: bold;
 }
-.post div {
-margin: 0 0 .75em;
-line-height: 1.3em;
+.post-body {
+margin: .75em 0;
 }
 .post-footer {
 margin: -.25em 0 0;
