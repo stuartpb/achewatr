@@ -21,7 +21,7 @@ function errHandlingCb(errCb){return function(successCb){
 }}
 
 function respondNotFound(req,res){
-  res.status(400);
+  res.status(404);
   res.render('notfound');
 }
 
@@ -33,6 +33,7 @@ function errResponse(res){
 }
 
 mongodb.MongoClient.connect(mongoUri,function(err,db){
+  if(err) throw err;
   items = db.collection('items');
 });
 
