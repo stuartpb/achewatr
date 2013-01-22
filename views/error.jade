@@ -10,7 +10,7 @@ html
       html {height: 100%;}
       body {
         background: url("/images/500/clickrobot.svg") bottom left no-repeat;
-        background-size: 800px;
+        background-size: contain;
         font-family: 'Press Start 2P', monospace;
         text-transform: uppercase;
         margin: 0;
@@ -21,13 +21,18 @@ html
       }
       #error {
         position: absolute;
-        bottom: 100px;
+        bottom: 25%;
         left: 100px;
         -webkit-transform: rotate(12deg);
         -moz-transform: rotate(12deg);
         -ms-transform: rotate(12deg);
         -o-transform: rotate(12deg);
         transform: rotate(12deg);
+        -webkit-transform-origin: 0 100%;
+        -moz-transform-origin: 0 100%;
+        -ms-transform-origin: 0 100%;
+        -o-transform-origin: 0 100%;
+        transform-origin: 0 100%;
       }
   body
     #error
