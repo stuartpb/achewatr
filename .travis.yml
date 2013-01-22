@@ -1,7 +1,16 @@
+---
 language: node_js
-node_js: "0.8"
-#after_script:
-#  - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
-#  - heroku plugins:install https://github.com/ddollar/heroku-anvil
-#  - heroku build -r achewatr -b
-#    https://github.com/heroku/heroku-buildpack-nodejs.git
+node_js: '0.8'
+after_success:
+- if [[ "$TRAVIS_PULL_REQUEST" == "true" ]]; then
+  echo "This is a pull request. No deployment will be done."; exit 0; fi
+- wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+- heroku plugins:install https://github.com/ddollar/heroku-anvil
+- heroku build -r achewatr -b https://github.com/heroku/heroku-buildpack-nodejs.git
+env:
+  global:
+  - secure: ! 'Ff+w7yG1KN8Jf4FQDh7slKuvtUKHdCrV+kKoHt8w5TemicEcEM5csK/ewko9
+
+      sQGrdfwiwp+9QedbDqVLUbtGaIEW1V7jIYYNlMxoS/KhyG/UeYrU9ml4Gzlx
+
+      iC8efeqnvHXA4z3yE75TZLwdSeK+CSD+aALKUww5pbQtnr28qzw='
