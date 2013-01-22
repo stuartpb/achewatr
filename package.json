@@ -4,7 +4,7 @@
   "description": "A unified Achewood strip / blog site.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/.bin/mocha --reporter list",
     "start": "index.js"
   },
   "repository": {
@@ -25,7 +25,8 @@
     "jsdom": "~0.3.3",
     "xml-stream": "~0.4.1",
     "html5": "~0.3.8",
-    "optimist": "~0.3.5"
+    "optimist": "~0.3.5",
+    "mocha": "~1.8.1"
   },
   "engines": {
     "node": "0.8.x",

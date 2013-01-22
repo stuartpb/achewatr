@@ -1,0 +1,7 @@
+language: node_js
+node_js: "0.8"
+#after_script:
+#  - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+#  - heroku plugins:install https://github.com/ddollar/heroku-anvil
+#  - heroku build -r achewatr -b
+#    https://github.com/heroku/heroku-buildpack-nodejs.git

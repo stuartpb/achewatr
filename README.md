@@ -10,6 +10,10 @@ Note that large clusters of insertions to MongoLab databases have a tendency to 
 
 You can also just produce the JSON that would be exported (allowing you to skip the local server and export steps) by running setup.js with `--method export` and the desired filename instead of the server URL.
 
+## Testing
+
+Run `mocha`.
+
 ## Database layout
 
 ### items
