@@ -3,7 +3,19 @@ html
   head
     meta(charset="utf-8")
     title 404 - achewatr
-    link(rel="stylesheet", href="/achewatr.css")
+    style
+      html {height: 100%;}
+      body {
+        background-color: black;
+        color: #ccc;
+        background: url("/images/404/deadbeef.png") bottom left no-repeat,
+          url("/images/404/nono.png") bottom right no-repeat,
+          url("/images/404/ground.png") bottom no-repeat;
+          url("/images/404/ground.png") top left repeat;
+        background-size: auto, auto, 100% auto, auto;
+        margin: 0;
+        padding: 3em;
+      }
   body
-    h1 Not found
-    p man why you got to request a thing
+    h1 not found
+    p They's gone
