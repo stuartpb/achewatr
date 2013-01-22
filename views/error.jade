@@ -7,16 +7,29 @@ html
       rel='stylesheet'
       type='text/css')
     style
-      body
-        background: url("/images/500/clickrobot.svg") bottom 600px;
+      html {height: 100%;}
+      body {
+        background: url("/images/500/clickrobot.svg") bottom left no-repeat;
+        background-size: 800px;
         font-family: 'Press Start 2P', monospace;
         text-transform: uppercase;
+        margin: 0;
+        padding: 0;
+      }
+      p {
+        white-space: pre;
+      }
       #error {
         position: absolute;
         bottom: 100px;
         left: 100px;
+        -webkit-transform: rotate(12deg);
+        -moz-transform: rotate(12deg);
+        -ms-transform: rotate(12deg);
+        -o-transform: rotate(12deg);
+        transform: rotate(12deg);
       }
   body
     #error
-      pre= error
+      p= error
       p WHAT DID YOU DO
