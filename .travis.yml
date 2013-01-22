@@ -2,8 +2,9 @@
 language: node_js
 node_js: '0.8'
 after_success:
-- if [[ "$TRAVIS_PULL_REQUEST" == "true" ]]; then
-  echo "This is a pull request. No deployment will be done."; exit 0; fi
+- if [[ "$TRAVIS_PULL_REQUEST" == "true" ]]; then echo "This is a pull request. No
+  deployment will be done."; exit 0; fi
+- rm -rf node_modules # Clean out devDependencies that break the build
 - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 - heroku plugins:install https://github.com/ddollar/heroku-anvil
 - heroku build -r achewatr -b https://github.com/heroku/heroku-buildpack-nodejs.git
