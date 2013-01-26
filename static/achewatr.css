@@ -28,6 +28,8 @@ a img {
   padding: 2px 10px 3px 10px;
   font-size: 11px;
   border-bottom: solid 1px black;
+  height: 32px;
+  font-weight: normal;
 }
 
 #achewatr-nav a {
@@ -35,10 +37,14 @@ a img {
   color: white;
 }
 
+#achewatr-nav img {
+  display: inline;
+}
+
 #achewatr-prev {
   position: absolute;
   left: 4px;
-  top: 4px;
+  top: 8px;
   text-align: left;
 }
 
@@ -50,7 +56,7 @@ a img {
 #achewatr-next {
   position: absolute;
   right: 4px;
-  top: 4px;
+  top: 8px;
   text-align: right;
 }
 
@@ -72,3 +78,24 @@ a img {
   color: white;
   font-weight: normal;
 }
+
+.achewatr-date {
+  font-weight:normal;
+}
+
+.achewatr-source {
+  font-weight: bold;
+}
+
+img.achewatr-source {
+  vertical-align: -4px;
+}
+
+.achewatr-title {
+  color: #bcb;
+}
+
+.achewatr-fin {
+  font-style: italic;
+}
+

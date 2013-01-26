@@ -272,7 +272,7 @@ app.get("/go",function(req,res){
     .send(302);
 });
 
-//error handlers like this are just too good to save for errors
+//error handlers like this are too good to save for just errors
 app.get("/404",function(req,res){
   res.render('notfound');
 });
