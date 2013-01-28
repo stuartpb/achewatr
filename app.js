@@ -57,7 +57,8 @@ function fortifyItem(doc){
       //what we want.
       doc.blogDate = XDate(doc.published).addMinutes(doc.offsetmins);
 
-      doc.date = doc.blogDate.toString('ddd MM.dd.yyyy hh:mm TT');
+      doc.date = doc.blogDate.toString('ddd MM.dd.yyyy');
+      doc.time = doc.blogDate.toString('hh:mm TT');
     }
   }
   return doc;
