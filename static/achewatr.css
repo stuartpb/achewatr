@@ -90,6 +90,10 @@ a img {
 
 img.achewatr-source {
   vertical-align: -4px;
+
+  /* Declare the dimensions to avert layout popping before loading */
+  width: 72px;
+  height: 16px;
 }
 
 .achewatr-title {
