@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <title>achewatr is down</title>
-  <link rel="icon" href="data:image/png;base64,
+  <link id="favicon" rel="icon" href="data:image/png;base64,
     iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
     jwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41
-    LjEwMPRyoQAAAGxJREFUOE+1k0EKwDAIBPNd//8A29CmWcMYLLTCgHFHb2laZuYVbv0qd38gmdAd
-    PKAzJT0wAhIU8kLQ+7fvfw4MKvOymM3DQAOCvDQgyAtB7/W9sua9//aABgR5aUCQtxUydGc2Z5FM
-    zF/s7QA7ZICrETsYbgAAAABJRU5ErkJggg==" type="image/png">
+    LjEwMPRyoQAAAG9JREFUOE+tjQEKwDAIA/td//8ARzvCYkgdZStciTHq+PwysxAR2aH5UkxcCLQL
+    uivAZUqT9VsNvT413YDW0OtTk72dD21N9o4W7AaAy7RNxWVKk7WD+9D/LtCg4jI2pB5wvVJM+IpD
+    8484fPdcjgtjw2yDydKPiAAAAABJRU5ErkJggg==" type="image/png">
   <style>
     html {
       display: table;
@@ -22,7 +22,7 @@
       vertical-align: middle;
       color: white;
       font-family: Segoe UI, Tahoma, sans-serif;
-      font-size: 14px;
+      font-size: 13px;
     }
     h1 {
       font-weight: bold;
@@ -30,9 +30,30 @@
       margin: 1em;
     }
     p {
-      margin: 1em;
+      margin-top: 1.5em;
+      margin-bottom: 1.2em;
+    }
+    a {
+      color: inherit;
+    }
+    button {
+      font-family: Segoe UI, Tahoma, sans-serif;
+      display: inline-block;
+      color: #233040;
+      font-size: 12px;
+      padding: 3px 10px;
     }
   </style>
+  <script>
+    setTimeout(function(){
+      document.getElementById("favicon").href = "data:image/png;base64,\
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlz\
+        AAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKhAAAAdklE\
+        QVQ4T5WNUQrAMAhDd93e/wCOFgImvLbbx5MYoz5VZYwx6kTmrZlQSBwPnL4Iytiw61svvUqatJC9\
+        9Cppdm/nS6PZvV8HdguCMhhKT9DMmkn/QmR+uyj/NrcAafI+HSD6XNoOZDChDIbSEzSzZtK/EJ6v\
+        5wXc77oX4ZmCmgAAAABJRU5ErkJggg==";
+    },500);
+  </script>
 </head>
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" width="50" height="72" version="1.1">
@@ -72,10 +93,11 @@
   Oh, no!
 </h1>
 <p>
-  Something went wrong while serving this webpage. You can try reloading, but the server is probably dead.
+  Something went wrong while serving this webpage. To continue, reload or wait and try again.
 </p>
+<button type="button" onclick="window.location.reload()">Reload</button>
 <p>
-  Try coming back later, once we've found a paperclip we can stick in it.
+  If that doesn't fix it, try visiting <a href="http://achewood.com">the main Achewood site</a>.
 </p>
 </body>
 </html>
