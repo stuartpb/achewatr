@@ -66,7 +66,7 @@ function fortifyItem(doc){
 
 function getPageTitle(doc) {
   if(doc.type == 'achewood')
-    return 'Achewood § ' + doc.published.toString('MMM dd, yyyy');
+    return 'Achewood § ' + doc.published.toString('MMMM d, yyyy');
   else if(doc.type == 'raysplace')
     return 'Achewood § Ray\'s Place - ' + doc.title;
   else if(doc.type == 'blog')
