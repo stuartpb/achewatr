@@ -1,0 +1,34 @@
+body {
+  background-color: #fc6;
+}
+.separator {
+  background: linear-gradient(to bottom left, #fc6, #fc6 49%, #000 50%, #ff9 51%, #ff9);
+  background: url("/images/index/separator-bg.svg");
+  min-height: 15%;
+}
+.separator::after{
+    content: url("/images/index/philippe-sprite.png");
+    position: absolute;
+    height:187px;
+    width:129px;
+    overflow:hidden;
+    right: 25%;
+    bottom: 50%;
+}
+h1, h2 {
+  margin: 0;
+}
+.top {
+  box-sizing: border-box;
+  min-height: 30%;
+  text-align: center;
+  padding-top: 10vh;
+}
+.what {
+  min-height: 55%;
+  background-color: #ff9
+}
+article {
+  max-width: 800px;
+  margin: auto;
+}
