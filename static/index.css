@@ -11,11 +11,11 @@ body {
 .separator::after{
     content: url("/images/index/philippe-sprite.png");
     position: absolute;
-    height:187px;
-    width:129px;
-    overflow:hidden;
+    height: 187px;
+    width: 129px;
+    overflow: hidden;
     right: 25%;
-    bottom: 50%;
+    bottom: 55%;
 }
 h1, h2 {
   margin: 0;
