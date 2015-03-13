@@ -29,7 +29,7 @@
     "mocha": "~1.8.1"
   },
   "engines": {
-    "node": "0.8.x",
+    "node": "0.10.36",
     "npm": "2.7.0"
   },
   "subdomain": "achewatr"
