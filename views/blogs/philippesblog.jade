@@ -14,10 +14,10 @@ block content
       | FROM: Achewood, Califronia<br>
       | AGE: I am five, so no spam, please.
     #main: #main2
-      h2.date-header= active.blogDate.toString('dddd, MMMM dd, yyyy')
+      h2.date-header= active.published.format('dddd, MMMM DD, YYYY')
       article.post
         if active.title
           h3.post-title= active.title
         .post-body: p!= active.content
-        p.post-footer posted by #{active.author || 'me'} @ <a href="#{originalUrl}">#{active.blogDate.toString('h:mm TT')}</a>
+        p.post-footer posted by #{active.author || 'me'} @ <a href="#{originalUrl}">#{active.published.format('h:mm A')}</a>
     footer#footer: p &nbsp;

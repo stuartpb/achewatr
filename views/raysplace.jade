@@ -11,5 +11,5 @@ block content
         h2.raySubtitle All the Latest Thoughts & Ideas from Ray
       .tapTapTap
         img(src = "http://achewood.com/rsrc/img/raysplace.gif", alt = "Tap, tap, tap")
-      time.rayDate= active.published.toString('MMM d, yyyy')
+      time.rayDate= active.published.format('MMM D, YYYY')
     #rayContent!= active.content

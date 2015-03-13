@@ -6,9 +6,9 @@ block head
 
 mixin comic
   if active.alt
-    img(src="http://achewood.com/comic.php?date="+active.mdydate, title=active.alt, alt="Comic for "+active.published.toString("MMMM dd, yyyy"))
+    img(src="http://achewood.com/comic.php?date="+active.mdydate, title=active.alt, alt="Comic for "+active.published.format("MMMM DD, YYYY"))
   else
-    img(src="http://achewood.com/comic.php?date="+active.mdydate, alt="Comic for "+active.published.toString("MMMM dd, yyyy"))
+    img(src="http://achewood.com/comic.php?date="+active.mdydate, alt="Comic for "+active.published.format("MMMM DD, YYYY"))
 
 block content
   if active.header

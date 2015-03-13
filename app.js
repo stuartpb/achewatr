@@ -1,5 +1,5 @@
 var express = require('express');
-var XDate = require('xdate');
+var moment = require('moment');
 var queue = require('queue-async');
 var url = require('url');
 
@@ -26,39 +26,27 @@ function respondError(err,req,res,next){
 
 function fortifyItem(doc){
   if(doc){
-    doc.published = XDate(doc.published);
+    doc.published = moment(doc.published);
     if (doc.type=="achewood") {
       doc.source = "Achewood";
       doc.banner = 'achewood';
       doc.url = '/achewood/date/' + doc.mdydate;
-      doc.date = doc.published.toString('ddd MM.dd.yyyy');
+      doc.date = doc.published.format('ddd MM.DD.YYYY');
     } else if (doc.type == "raysplace") {
       doc.source = "Ray's Place";
       doc.banner = 'raysplace';
       doc.url = '/raysplace/date/' + doc.mdydate;
-      doc.date = doc.published.toString('ddd MM.dd.yyyy');
+      doc.date = doc.published.format('ddd MM.DD.YYYY');
     } else if (doc.type == "blog") {
       doc.source = blogInfo[doc.blog].character;
       doc.banner = blogInfo[doc.blog].banner;
       doc.url = '/blogs/' + doc.blog + doc.path;
 
-      //Blogs use a different, local-time-offset version of the date
-      //for local time printing - this isn't perfect (if you were to output
-      //a date that includes the timezone offset, the trick would be revealed),
-      //but it's good enough (we never do that)
+      //Set the UTC Offset, for local time formatting
+      doc.published.utcOffset(doc.offsetmins);
 
-      //Originally the offset was applied straight to .published so everything
-      //that worked with .published would be offset, the thinking being that
-      //the only things using .published after fortification were
-      //presentational. That's still probably true, but those presentational
-      //uses (in the templates) were changed to use blogDate afterward (in a
-      //wild bug chase), and that means we can re-use the non-offset
-      //.published value if we ever need to, and have a way of distinguishing
-      //what we want.
-      doc.blogDate = XDate(doc.published).addMinutes(doc.offsetmins);
-
-      doc.date = doc.blogDate.toString('ddd MM.dd.yyyy');
-      doc.time = doc.blogDate.toString('hh:mm TT');
+      doc.date = doc.published.format('ddd MM.DD.YYYY');
+      doc.time = doc.published.format('hh:mm A');
     }
   }
   return doc;

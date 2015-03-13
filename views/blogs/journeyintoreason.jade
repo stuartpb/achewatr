@@ -9,12 +9,12 @@ block content
     p#description
   #content
     #main
-      h2.date-header= active.blogDate.toString('dddd, MMMM dd, yyyy')
+      h2.date-header= active.published.format('dddd, MMMM DD, YYYY')
       article.post
         if active.title
           h3.post-title= active.title
         .post-body!= active.content
-        p.post-footer posted by #{active.author || 'me'} at <a href="#{originalUrl}">#{active.blogDate.toString('h:mm TT')}</a>
+        p.post-footer posted by #{active.author || 'me'} at <a href="#{originalUrl}">#{active.published.format('h:mm A')}</a>
     #sidebar
       img(src="http://www.achewood.com/rsrc/img/pat_blog.gif")
   footer#footer: p &nbsp;
