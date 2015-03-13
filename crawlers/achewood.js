@@ -1,4 +1,4 @@
-var jsdom = require('jsdom');
+var cheerequest = require('../lib/cheerequest.js');
 var url = require('url');
 var queue = require('queue-async');
 
@@ -12,68 +12,61 @@ function onSuccess(cb){
   };
 }
 
-module.exports = function(env,insert,finish){
-  function addComic(title,callback){
-    return onSuccess(function(window){
-    var document = window.document;
-    var itemDoc = {
-      _id: document.location.href,
-      title: title,
-      published: new Date(
-        document.getElementsByClassName("date")[0].textContent
+module.exports = function(env, insert, finish) {
+  function addComic(href, title, callback) {
+    cheerequest(href).then(function parseComic($){
+      var itemDoc = {
+        _id: href,
+        title: title,
         //All RSS items list a publication time of 7:00, so this is my guess
-        + ' UTC-07:00'),
-      type: 'achewood',
-      mdydate: url.parse(document.location.href,true).query.date
-    };
+        published: new Date($(".date").text() + ' UTC-07:00'),
+        type: 'achewood',
+        mdydate: url.parse(href, true).query.date
+      };
 
-    var anchor = document.getElementById("comic_body")
-      .getElementsByTagName("a")[0];
-    var comic = anchor.getElementsByTagName("img")[0];
-    if(comic.title) {itemDoc.alt = comic.title}
-    if(anchor.href
-      //Apparently empty hrefs get as the document's location
-      && anchor.href != document.location.href) {
-      itemDoc.href = anchor.href;
-    }
-
-    var cHeader = document.getElementById("comic_header");
-    if(cHeader){
-      //Adjust all links
-      var anchors = cHeader.getElementsByTagName('a');
-      for (var i = 0; i < anchors.length; ++i) {
-        var a = anchors[i];
-        //Make URLs absolute
-        a.href = url.resolve(document.location.href,a.href);
-        //Replace the dum-dum onclick-based new window opening with
-        //the standard attribute for it
-        a.removeAttribute('onclick');
-        a.target='_blank';
+      var anchor = $("#comic_body a");
+      var comic = $("img", anchor);
+      if (comic.attr('title')) {
+        itemDoc.alt = comic.attr('title');
       }
-      itemDoc.header = cHeader.innerHTML.trim();
-    }
+      if(anchor.attr('href')
+        // I don't think any comics explicitly link to themselves,
+        // but if they did, we'd want to count it as a null link
+        && anchor.attr('href') != href) {
+        itemDoc.href = url.resolve(href, anchor.attr('href'));
+      }
 
-    insert(itemDoc,callback);
-  })}
+      var cHeader = $("#comic_header");
+      if (cHeader.length > 0) {
+        // Adjust all links
+        $('a', cHeader).each(function adjustLinks(i, a) {
+          a = $(a);
+          // Make URLs absolute
+          a.attr('href',url.resolve(href, a.attr('href')));
+          // Replace the dum-dum onclick-based new window opening with
+          // the standard attribute for it
+          a.removeAttr('onclick');
+          a.attr('target', '_blank');
+        });
+        itemDoc.header = cHeader.html().trim();
+      }
 
-  function spawnEnv(href,title){
-    return function(cb){jsdom.env(href,
-      addComic(title,cb))};
+      insert(itemDoc,callback);
+    });
   }
 
   var q = queue(env.concurrency);
   //Get www.achewood.com/list.php
   console.log("Connecting to list page...");
-  jsdom.env("http://www.achewood.com/list.php", onSuccess(function(window){
+  var location = "http://www.achewood.com/list.php";
+  cheerequest(location).then(function($){
     console.log("Connected to list page");
-    var document = window.document;
 
-    var dds = document.getElementsByTagName('dd');
-    //For each page:
-    for (var i = 0; i < dds.length; ++i) {
-      var anchor = dds[i].getElementsByTagName('a')[0];
-      q.defer(spawnEnv(anchor.href,anchor.textContent));
-      q.awaitAll(onSuccess(finish));
-    }
-  }));
+    $('dd a').each(function(i, anchor){
+      anchor = $(anchor);
+      q.defer(addComic,
+        url.resolve(location,anchor.attr('href')), anchor.text());
+    });
+    q.awaitAll(onSuccess(finish));
+  });
 };
