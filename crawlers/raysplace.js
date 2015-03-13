@@ -18,8 +18,6 @@ function onSuccess(cb){
   };
 }
 
-function noop(){}
-
 function RaysPlaceCollector(insert){
   return function addRaysPlace(date,title,endCb) {
     return function(window) {
@@ -39,8 +37,7 @@ function RaysPlaceCollector(insert){
         type: 'raysplace',
         mdydate: date.replace(/\./g,''),
         content: rayContent
-      });
-      endCb();
+      },endCb);
     };
   };
 }
@@ -82,7 +79,9 @@ module.exports = function(env,insert,finish){
           document.location.href = 'http://achewood.com/raysplace.php?date='+date.replace(/\./g,'');
 
           //and use this DOM rather than requesting a new page
-          addRaysPlace(date,anchor.textContent.trim(),noop)(window);
+          q.defer(function(cb){
+            addRaysPlace(date,anchor.textContent.trim(),cb)(window);
+          });
         }
       }
 

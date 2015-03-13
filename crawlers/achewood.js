@@ -53,8 +53,7 @@ module.exports = function(env,insert,finish){
       itemDoc.header = cHeader.innerHTML.trim();
     }
 
-    insert(itemDoc);
-    callback();
+    insert(itemDoc,callback);
   })}
 
   function spawnEnv(href,title){
