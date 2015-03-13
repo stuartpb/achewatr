@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter list",
-    "start": "node server.js"
+    "start": "envigorate"
   },
   "repository": {
     "type": "git",
@@ -15,10 +15,12 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "dependencies": {
+    "envigor": "^0.8.2",
     "express": "~3.0.5",
     "jade": "~0.27.7",
     "moment": "^2.9.0",
-    "mongodb": "~1.2.6",
+    "mongodb": "^1.4.34",
+    "mongoskin": "^1.4.12",
     "queue-async": "~1.0.0"
   },
   "devDependencies": {

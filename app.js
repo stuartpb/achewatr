@@ -2,6 +2,7 @@ var express = require('express');
 var moment = require('moment');
 var queue = require('queue-async');
 var url = require('url');
+var mongo = require('mongoskin');
 
 var blogInfo = require("./data/bloginfo.json");
 
@@ -76,7 +77,10 @@ var edgeFields = {
   offsetmins: 1
 };
 
-module.exports = function(items){
+module.exports = function(cfg){
+
+var mongoUrl = cfg.mongodb && cfg.mongodb.url || 'mongodb://localhost/default';
+var items = mongo.db(mongoUrl).collection('items');
 
 function getTrio(activeQuery,onSuccess,cb){
   items.findOne(activeQuery,onSuccess(function(active){
