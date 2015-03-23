@@ -133,7 +133,8 @@ app.get("/blogs/:blog*",renderPage(function(req){
 app.get("/",function(req,res){
   res.render('index');
 });
-app.get("/list",function(req,res){
+app.get("/list",function(req,res,next){
+  return next();
 });
 
 function getLocationForDocument(doc){
