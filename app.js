@@ -3,7 +3,7 @@ var queue = require('queue-async');
 var mongo = require('mongoskin');
 
 var fortifyItem = require('./lib/rendering/fortifyItem.js');
-var getLocationForSource = require('./lib/rendering/getLocationForSource.js');
+var getLocationForSource = require('./lib/routing/getLocationForSource.js');
 
 var blogInfo = require("./data/bloginfo.json");
 
