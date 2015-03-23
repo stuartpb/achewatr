@@ -184,9 +184,7 @@ function getLocationForDocument(doc){
 
 function redirectToDocLocation(doc,res){
   if(doc){
-    res.set('Location',
-        getLocationForDocument(doc))
-      .send(302);
+    res.redirect(getLocationForDocument(doc));
   } else {
     res.render('notfound');
   }
@@ -258,9 +256,7 @@ function getLocationForSource(name) {
 }
 
 app.get("/go",function(req,res){
-  res.set('Location',
-      getLocationForSource(req.param('q')))
-    .send(302);
+  res.redirect(getLocationForSource(req.param('q')));
 });
 
 //error handlers like this are too good to save for just errors
