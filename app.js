@@ -17,15 +17,6 @@ function errHandlingCb(errCb){return function(successCb){
   };
 }}
 
-function respondNotFound(req,res){
-  res.status(404).render('notfound');
-}
-
-function respondError(err,req,res,next){
-  console.error(err);
-  res.status(500).render('error',{error:err});
-}
-
 function getPageTitle(doc) {
   if(doc.type == 'achewood')
     return 'Achewood § ' + doc.published.toString('MMMM d, yyyy');
@@ -108,7 +99,7 @@ function renderPage(reqCobbler) {
     var cobbled = reqCobbler(req);
     getTrio(cobbled.query,onSuccess,function(trio){
       if(!trio){
-        respondNotFound(req,res);
+        next();
       } else {
         if (trio.active.type == 'blog') {
           trio.blogName = blogInfo[trio.active.blog].title;
@@ -198,8 +189,13 @@ app.get("/500",function(req,res){
 
 app.use(express.static(__dirname+'/static'));
 
-app.use(respondNotFound);
-app.use(respondError);
+app.use(function respondNotFound(req,res){
+  res.status(404).render('notfound');
+});
+app.use(function respondError(err,req,res,next){
+  console.error(err);
+  res.status(500).render('error',{error:err});
+});
 
 return app;
 };
