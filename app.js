@@ -153,8 +153,6 @@ var app = express();
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 
-app.use(express.compress());
-
 app.get("/achewood/date/:date",renderPage(function(req){
   return { query: {type: 'achewood', mdydate: req.params.date},
     viewName: 'achewood' };
