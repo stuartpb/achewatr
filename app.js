@@ -1,8 +1,9 @@
 var express = require('express');
-var moment = require('moment');
 var queue = require('queue-async');
-var url = require('url');
 var mongo = require('mongoskin');
+
+var fortifyItem = require('./lib/rendering/fortifyItem.js');
+var getLocationForSource = require('./lib/rendering/getLocationForSource.js');
 
 var blogInfo = require("./data/bloginfo.json");
 
@@ -23,34 +24,6 @@ function respondNotFound(req,res){
 function respondError(err,req,res,next){
   console.error(err);
   res.status(500).render('error',{error:err});
-}
-
-function fortifyItem(doc){
-  if(doc){
-    doc.published = moment(doc.published);
-    if (doc.type=="achewood") {
-      doc.source = "Achewood";
-      doc.banner = 'achewood';
-      doc.url = '/achewood/date/' + doc.mdydate;
-      doc.date = doc.published.format('ddd MM.DD.YYYY');
-    } else if (doc.type == "raysplace") {
-      doc.source = "Ray's Place";
-      doc.banner = 'raysplace';
-      doc.url = '/raysplace/date/' + doc.mdydate;
-      doc.date = doc.published.format('ddd MM.DD.YYYY');
-    } else if (doc.type == "blog") {
-      doc.source = blogInfo[doc.blog].character;
-      doc.banner = blogInfo[doc.blog].banner;
-      doc.url = '/blogs/' + doc.blog + doc.path;
-
-      //Set the UTC Offset, for local time formatting
-      doc.published.utcOffset(doc.offsetmins);
-
-      doc.date = doc.published.format('ddd MM.DD.YYYY');
-      doc.time = doc.published.format('hh:mm A');
-    }
-  }
-  return doc;
 }
 
 function getPageTitle(doc) {
@@ -209,51 +182,6 @@ function redirectToLatest(type,res,next){
 app.get("/latest",function(req,res,next){
   redirectToLatest(req.query.type,res,next);
 });
-
-function getLocationForSource(name) {
-  function achewoodSearchUrl(query){
-    return url.format({
-      protocol: 'http:',
-      host: 'www.ohnorobot.com',
-      pathname: '/index.pl',
-      query: {
-        comic: '636',
-        s: query
-      }
-    });
-  }
-
-  var parsed = url.parse(name, true);
-
-  if(parsed.hostname == 'achewood.com' ||
-    parsed.hostname == 'www.achewood.com'){
-    if (parsed.pathname == '/index.php') {
-      if(parsed.query.date) {
-        return '/achewood/date/' + parsed.query.date;
-      } else {
-        //note redirecting to a redirect page like this is a bad idea
-        return '/latest?type=achewood';
-      }
-    } else if (parsed.pathname == '/raysplace.php') {
-      if(parsed.query.date) {
-        return '/raysplace/date/' + parsed.query.date;
-      } else {
-        //note redirecting to a redirect page like this is a bad idea
-        return '/latest?type=raysplace';
-      }
-    } else if (parsed.pathname == '/list.php'){
-      return '/list';
-    } else {
-      return achewoodSearchUrl(name);
-    }
-  } else if (/^[a-zA-Z0-9\-]+\.blogspot\.com$/.test(parsed.hostname)){
-    var blog = parsed.hostname.slice(0,parsed.hostname.indexOf('.'));
-    var path = parsed.path.replace(/\.html$/,'');
-    return '/blogs/' + blog + path;
-  } else {
-    return achewoodSearchUrl(name);
-  }
-}
 
 app.get("/go",function(req,res){
   res.redirect(getLocationForSource(req.param('q')));
