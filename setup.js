@@ -22,11 +22,10 @@ if(argv.crawl && !Array.isArray(argv.crawl)){
 }
 
 function fireInsert(item, cb){
-  method.insert(item,function(err) {
-    if (err) throw err;
+  method.insert(item).then(function() {
     if (argv.v) console.log(item._id);
     cb();
-  });
+  }).catch(function(err){throw err});
 }
 
 function runCrawlers(index){

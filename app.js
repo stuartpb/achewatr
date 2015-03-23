@@ -1,6 +1,8 @@
 var express = require('express');
-var queue = require('queue-async');
-var mongo = require('mongoskin');
+var mongo = require('promised-mongo');
+
+var Promise = Promise;
+if (!Promise) Promise = require('bluebird');
 
 var fortifyItem = require('./lib/rendering/fortifyItem.js');
 var getLocationForSource = require('./lib/routing/getLocationForSource.js');
@@ -44,20 +46,12 @@ var edgeFields = {
 module.exports = function(cfg){
 
 var mongoUrl = cfg.mongodb && cfg.mongodb.url || 'mongodb://localhost/default';
-var items = mongo.db(mongoUrl).collection('items');
+var items = mongo(mongoUrl).collection('items');
 
 function getTrio(activeQuery,onSuccess,cb){
-  items.findOne(activeQuery,onSuccess(function(active){
+  items.findOne(activeQuery).then(function(active){
     if(!active) cb(null);
     else {
-      var q = queue();
-
-      var deferredFindOne = function(query,options){
-        q.defer(function(endCb){
-          items.findOne(query,options,function(){endCb.apply(this,arguments)});
-        });
-      };
-
       //this is pretty bad
       var prevQuery = active.type == 'achewood'?
         { $or: [
@@ -70,27 +64,21 @@ function getTrio(activeQuery,onSuccess,cb){
             {published: active.published, type: 'achewood'}]} :
         {published: {$gt: active.published}};
 
-      deferredFindOne(
-        prevQuery,
-        { limit: 1,
-          sort: {published: -1},
-          fields: edgeFields });
-      deferredFindOne(
-        nextQuery,
-        { limit: 1,
-          sort: {published: 1},
-          fields: edgeFields });
-
-      q.await(onSuccess(function(prev,next){
+      Promise.all([
+        items.findOne(prevQuery, {limit: 1,
+          sort: {published: -1}, fields: edgeFields }),
+        items.findOne(nextQuery, {limit: 1,
+          sort: {published: 1}, fields: edgeFields })
+      ]).then(function(values){
         var trio = {
           active: fortifyItem(active),
-          prev: fortifyItem(prev),
-          next: fortifyItem(next)
+          prev: fortifyItem(values[0]),
+          next: fortifyItem(values[1])
         };
         cb(trio);
-      }));
+      });
     }
-  }));
+  });
 }
 
 function renderPage(reqCobbler) {
@@ -156,19 +144,17 @@ function redirectToDocLocation(doc,res){
 }
 
 function redirectToLatest(type,res,next){
-  var onSuccess = errHandlingCb(next);
   var query = {};
-  if(type) query.type = type;
-  items.find(query,
-    { type: 1,
+  if (type) query.type = type;
+  items.findOne(query, {limit: 1,
+    sort: {published: -1},
+    fields: {
+      type: 1,
       blog: 1,
       mdydate: 1,
-      path: 1},
-    { limit:1,
-      sort: {published: -1}},
-    onSuccess(function(cursor){cursor.nextObject(onSuccess(function(doc){
-      redirectToDocLocation(doc,res);
-    }))}));
+      path: 1}}).then(function(doc){
+        redirectToDocLocation(doc,res);
+    });
 }
 
 app.get("/latest",function(req,res,next){
