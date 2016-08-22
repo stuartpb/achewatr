@@ -175,6 +175,7 @@ app.get("/500",function(req,res){
 });
 
 app.use(express.static(__dirname+'/static'));
+app.use('/gh-pages', express.static(__dirname+'/docs'));
 
 app.use(function respondNotFound(req,res){
   res.status(404).render('notfound');

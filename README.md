@@ -2,6 +2,8 @@
 
 A site presenting all Achewood strips, columns, and blogs in one clean, unified context.
 
+Note that **this is the project's only documentation**: the `docs` directory is only so named so that GitHub may serve static assets from it via GitHub Pages, for when the site is down.
+
 ## Setting up
 
 Install the devDependencies, then run setup.js with the `mongodb://` URL of your database as the first command line argument to the script.
